@@ -25,6 +25,7 @@ namespace SteamLogger
 
         [DllImport("user32.dll")]
         public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
+
         public class User
         {
             public User(string v1, string v2, string v3)
@@ -87,16 +88,7 @@ namespace SteamLogger
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if(Properties.Settings.Default.steamAuth.Length > 0)
-            {
-                SteamGuardText2.Text = "";
-                SteamGuardText2.ForeColor = Color.Green;
-            }
-            else
-            {
-                SteamGuardText2.Text = "";
-                SteamGuardText2.ForeColor = Color.Red;
-            }
+            SteamGuardText2.Text = "";
             CheckForIllegalCrossThreadCalls = false;
             if (!Directory.Exists(path + @"\SteamAuth")) {
                 Directory.CreateDirectory(path + @"\SteamAuth");
@@ -113,7 +105,7 @@ namespace SteamLogger
 
             foreach (var line in lines)
             {
-                string[] entries = line.Split(",");
+                string[] entries = line.Split("/ /,/ /");
                 users.Add(new User(entries[0], entries[1], entries[2]));
                 comboBox1.Items.Add(entries[0]);
             }
@@ -126,8 +118,9 @@ namespace SteamLogger
             {
                 MessageBox.Show("Steam guard is enable for this account");
             }
-            else if (SteamGuardText2.Text == "DISABLE") {
-                CreateSteamAuthLink newfrm = new CreateSteamAuthLink();
+            else if (SteamGuardText2.Text == "DISABLE" && comboBox1.SelectedIndex >=0) {
+                User user = users[comboBox1.SelectedIndex];
+                CreateSteamAuthLink newfrm = new CreateSteamAuthLink(user.userName, user.password);
                 newfrm.Show();
             }
         }

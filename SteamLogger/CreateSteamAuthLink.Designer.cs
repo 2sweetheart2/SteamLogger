@@ -71,7 +71,7 @@ namespace SteamLogger
             // 
             this.v1.Location = new System.Drawing.Point(12, 376);
             this.v1.Name = "v1";
-            this.v1.Size = new System.Drawing.Size(110, 23);
+            this.v1.Size = new System.Drawing.Size(74, 23);
             this.v1.TabIndex = 5;
             this.v1.Text = "Variant 1";
             this.v1.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@ namespace SteamLogger
             // 
             this.v2.Location = new System.Drawing.Point(143, 376);
             this.v2.Name = "v2";
-            this.v2.Size = new System.Drawing.Size(110, 23);
+            this.v2.Size = new System.Drawing.Size(74, 23);
             this.v2.TabIndex = 6;
             this.v2.Text = "Variant 2";
             this.v2.UseVisualStyleBackColor = true;
