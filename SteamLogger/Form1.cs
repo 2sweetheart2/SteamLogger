@@ -158,7 +158,7 @@ namespace SteamLogger
             Thread.Sleep(8000);
             SendKeys.SendWait(code);
             SendKeys.SendWait("{ENTER}");
-            if (Process.GetProcessesByName("Steam").Length >= 1) Task.Run(() => PutSteamGuardCode(code));
+            //if (Process.GetProcessesByName("Steam").Length >= 1) Task.Run(() => PutSteamGuardCode(code));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
