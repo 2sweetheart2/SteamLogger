@@ -14,6 +14,7 @@ using SteamAuth;
 using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace SteamLogger
 {
@@ -25,6 +26,14 @@ namespace SteamLogger
 
         [DllImport("user32.dll")]
         public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
+        public const int HWND_BROADCAST = 0xffff;
+        public static readonly int WM_TEST = RegisterWindowMessage("WM_TEST");
+
+        [DllImport("user32")]
+        public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+
+        [DllImport("user32")]
+        public static extern int RegisterWindowMessage(string message);
 
         public class User
         {
@@ -136,6 +145,20 @@ namespace SteamLogger
             startInfo.Arguments = " -login \"" + login + "\" \"" + pass + "\"";
             Process.Start(startInfo);
             User user = users[comboBox1.SelectedIndex];
+            if (user.steamGuardLink.Length > 0)
+            {
+                var steamGuard = new SteamGuardAccount();
+                steamGuard.SharedSecret = user.steamGuardLink;
+                Task.Run(() => PutSteamGuardCode(steamGuard.GenerateSteamGuardCode()));
+            }
+
+        }
+        void PutSteamGuardCode(string code)
+        {
+            Thread.Sleep(8000);
+            SendKeys.SendWait(code);
+            SendKeys.SendWait("{ENTER}");
+            //if (Process.GetProcessesByName("Steam").Length >= 1) Task.Run(() => PutSteamGuardCode(code));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
