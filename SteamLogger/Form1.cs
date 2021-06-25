@@ -77,7 +77,7 @@ namespace SteamLogger
                 users.Add(new User(loginBox.Text, passwordBox.Text, ""));
                 comboBox1.Items.Add(loginBox.Text);
                 List<string> lines = File.ReadAllLines(path).ToList();
-                lines.Add(loginBox.Text + ',' + passwordBox.Text + ',');
+                lines.Add(loginBox.Text + "/ /,/ /" + passwordBox.Text + "/ /,/ /");
                 File.WriteAllLines(path, lines);
                 loginBox.Text = "";
                 passwordBox.Text = "";

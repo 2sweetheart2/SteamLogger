@@ -39,7 +39,6 @@ namespace SteamLogger
             this.label1 = new System.Windows.Forms.Label();
             this.load = new System.Windows.Forms.Button();
             this.remove = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SteamGuardText1 = new System.Windows.Forms.Label();
             this.SteamGuardText2 = new System.Windows.Forms.Label();
             this.ActivateSteamGuard = new System.Windows.Forms.Button();
@@ -100,11 +99,6 @@ namespace SteamLogger
             this.remove.UseVisualStyleBackColor = true;
             this.remove.Click += new System.EventHandler(this.remove_Click);
             // 
-            // textBox1
-            // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            // 
             // SteamGuardText1
             // 
             resources.ApplyResources(this.SteamGuardText1, "SteamGuardText1");
@@ -130,7 +124,6 @@ namespace SteamLogger
             this.Controls.Add(this.ActivateSteamGuard);
             this.Controls.Add(this.SteamGuardText2);
             this.Controls.Add(this.SteamGuardText1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.remove);
             this.Controls.Add(this.load);
             this.Controls.Add(this.label1);
@@ -158,7 +151,6 @@ namespace SteamLogger
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button load;
         private System.Windows.Forms.Button remove;
-        public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label SteamGuardText1;
         private System.Windows.Forms.Label SteamGuardText2;
         private System.Windows.Forms.Button ActivateSteamGuard;
