@@ -133,7 +133,7 @@ namespace SteamLogger
             }
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam", "SteamExe", "null");
-            startInfo.Arguments = " -login " + login + " " + pass;
+            startInfo.Arguments = " -login \"" + login + "\" \"" + pass + "\"";
             Process.Start(startInfo);
         }
 
