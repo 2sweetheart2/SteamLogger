@@ -54,8 +54,8 @@ namespace SteamLogger
         {
             InitializeComponent();
         }
-        
-        
+
+
 
         private void load_Click(object sender, EventArgs e)
         {
@@ -63,7 +63,8 @@ namespace SteamLogger
             {
                 User user = users[comboBox1.SelectedIndex];
                 LoginAccount(user.userName, user.password, user.steamGuardLink);
-            }else MessageBox.Show("select account before load him", "SteamAuth");
+            }
+            else MessageBox.Show("select account before load him", "SteamAuth");
         }
 
         private void remove_Click(object sender, EventArgs e)
@@ -81,7 +82,7 @@ namespace SteamLogger
 
         private void add_Click(object sender, EventArgs e)
         {
-            if(loginBox.Text.Length > 0 && passwordBox.Text.Length > 0)
+            if (loginBox.Text.Length > 0 && passwordBox.Text.Length > 0)
             {
                 users.Add(new User(loginBox.Text, passwordBox.Text, ""));
                 comboBox1.Items.Add(loginBox.Text);
@@ -99,7 +100,8 @@ namespace SteamLogger
         {
             SteamGuardText2.Text = "";
             CheckForIllegalCrossThreadCalls = false;
-            if (!Directory.Exists(path + @"\SteamAuth")) {
+            if (!Directory.Exists(path + @"\SteamAuth"))
+            {
                 Directory.CreateDirectory(path + @"\SteamAuth");
             }
             path += @"\SteamAuth\users.txt";
@@ -127,7 +129,8 @@ namespace SteamLogger
             {
                 MessageBox.Show("Steam guard is enable for this account");
             }
-            else if (SteamGuardText2.Text == "DISABLE" && comboBox1.SelectedIndex >=0) {
+            else if (SteamGuardText2.Text == "DISABLE" && comboBox1.SelectedIndex >= 0)
+            {
                 User user = users[comboBox1.SelectedIndex];
                 CreateSteamAuthLink newfrm = new CreateSteamAuthLink(user.userName, user.password);
                 newfrm.Show();
@@ -155,10 +158,18 @@ namespace SteamLogger
         }
         void PutSteamGuardCode(string code)
         {
-            Thread.Sleep(8000);
-            SendKeys.SendWait(code);
-            SendKeys.SendWait("{ENTER}");
-            //if (Process.GetProcessesByName("Steam").Length >= 1) Task.Run(() => PutSteamGuardCode(code));
+            IntPtr steamGuardWindow = GetSteamGuardWindow();
+            while (steamGuardWindow.ToInt32().Equals(0))
+            {
+                Thread.Sleep(100);
+                steamGuardWindow = GetSteamGuardWindow();
+            }
+            Thread.Sleep(3000);
+            foreach (char c in code.ToCharArray())
+            {
+                SendKey(steamGuardWindow, c);
+            }
+            SendEnter(steamGuardWindow);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -166,7 +177,8 @@ namespace SteamLogger
             if (comboBox1.SelectedIndex >= 0)
             {
                 User user = users[comboBox1.SelectedIndex];
-                if (user.steamGuardLink.Length > 0) {
+                if (user.steamGuardLink.Length > 0)
+                {
                     SteamGuardText2.ForeColor = Color.Green;
                     SteamGuardText2.Text = "ENABLE";
                 }
@@ -193,6 +205,83 @@ namespace SteamLogger
                 else MessageBox.Show("activate Guard Code before generate him");
             }
             else MessageBox.Show("Select account before generate Steam Guard code");
+        }
+
+        const uint WM_KEYDOWN = 0x0100;
+        const uint WM_KEYUP = 0x0101;
+        const uint WM_CHAR = 0x0102;
+        const int VK_RETURN = 0x0D;
+
+        private delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern bool EnumWindows(EnumWindowProc callback, IntPtr lParam);
+        [DllImport("user32.dll")]
+        static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, IntPtr lParam);
+        [DllImport("user32.dll")]
+        static extern bool GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+        [DllImport("User32.dll")]
+        static extern void GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        private static bool EnumWindow(IntPtr hWnd, IntPtr lParam)
+        {
+            StringBuilder ClassNameSb = new StringBuilder(256);
+            GetClassName(hWnd, ClassNameSb, ClassNameSb.Capacity + 1);
+            string className = ClassNameSb.ToString();
+            StringBuilder windowTextSb = new StringBuilder(256);
+            GetWindowText(hWnd, windowTextSb, windowTextSb.Capacity + 1);
+            string windowText = windowTextSb.ToString();
+            if (className.Equals("vguiPopupWindow") ||
+                windowText.StartsWith("Steam Guard") ||
+                windowText.StartsWith("Steam 令牌") ||
+                windowText.StartsWith("Steam ガード"))
+            {
+                GCHandle gcChildhandlesList = GCHandle.FromIntPtr(lParam);
+
+                List<IntPtr> validHandles = gcChildhandlesList.Target as List<IntPtr>;
+                validHandles.Add(hWnd);
+                return false;
+            }
+            return true;
+        }
+        public static IntPtr GetSteamGuardWindow()
+        {
+            List<IntPtr> validHandles = new List<IntPtr>();
+
+            GCHandle gcValidhandlesList = GCHandle.Alloc(validHandles);
+            IntPtr pointerChildHandlesList = GCHandle.ToIntPtr(gcValidhandlesList);
+
+            try
+            {
+                EnumWindowProc validProc = new EnumWindowProc(EnumWindow);
+                EnumWindows(validProc, pointerChildHandlesList);
+            }
+            finally
+            {
+                gcValidhandlesList.Free();
+            }
+
+            if (validHandles.Count > 0)
+            {
+                return validHandles[0];
+            }
+            return IntPtr.Zero;
+        }
+
+        private static void SendKey(IntPtr hwnd, char c)
+        {
+            SetForegroundWindow(hwnd);
+            Thread.Sleep(10);
+            SendMessage(hwnd, WM_CHAR, c, IntPtr.Zero);
+        }
+
+        private static void SendEnter(IntPtr hwnd)
+        {
+            SendMessage(hwnd, WM_KEYDOWN, VK_RETURN, IntPtr.Zero);
+            SendMessage(hwnd, WM_KEYUP, VK_RETURN, IntPtr.Zero);
         }
     }
 
