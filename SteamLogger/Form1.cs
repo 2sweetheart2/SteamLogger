@@ -135,6 +135,7 @@ namespace SteamLogger
             startInfo.FileName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam", "SteamExe", "null");
             startInfo.Arguments = " -login \"" + login + "\" \"" + pass + "\"";
             Process.Start(startInfo);
+            User user = users[comboBox1.SelectedIndex];
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,6 +153,23 @@ namespace SteamLogger
                     SteamGuardText2.Text = "DISABLE";
                 }
             }
+        }
+
+        private void generateGuard_Click(object sender, EventArgs e)
+        {
+
+            if (comboBox1.SelectedIndex >= 0)
+            {
+                User user = users[comboBox1.SelectedIndex];
+                if (user.steamGuardLink.Length > 0)
+                {
+                    var steamGuard = new SteamGuardAccount();
+                    steamGuard.SharedSecret = user.steamGuardLink;
+                    MessageBox.Show(steamGuard.GenerateSteamGuardCode(), "Steam Guard code");
+                }
+                else MessageBox.Show("activate Guard Code before generate him");
+            }
+            else MessageBox.Show("Select account before generate Steam Guard code");
         }
     }
 

@@ -121,8 +121,10 @@ namespace SteamLogger
                     {
                         System.Console.WriteLine("Unable to finalize authenticator: " + linkResult);
                     }
+                    this.Close();
                 }
             }
+            this.Close();
         }
         
         [DllImport("kernel32.dll", SetLastError = true)]
