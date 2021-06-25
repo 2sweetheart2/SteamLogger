@@ -100,10 +100,9 @@ namespace SteamLogger
         {
             SteamGuardText2.Text = "";
             CheckForIllegalCrossThreadCalls = false;
-            if (!Directory.Exists(path + @"\SteamAuth"))
-            {
-                Directory.CreateDirectory(path + @"\SteamAuth");
-            }
+            if (!Directory.Exists(path + @"\SteamAuth")) Directory.CreateDirectory(path + @"\SteamAuth");
+            string path2 = path + @"SteamAuth\secretsFile";
+            if (!Directory.Exists(path2)) Directory.CreateDirectory(path2);
             path += @"\SteamAuth\users.txt";
             if (!File.Exists(path))
             {
@@ -111,30 +110,25 @@ namespace SteamLogger
                 sw.Flush();
                 sw.Dispose();
             }
+            createAllUsersAndCheckSteamGuard();
 
-            List<string> lines = File.ReadAllLines(path).ToList();
 
-            foreach (var line in lines)
-            {
-                string[] entries = line.Split("/ /,/ /");
-                users.Add(new User(entries[0], entries[1], entries[2]));
-                comboBox1.Items.Add(entries[0]);
-            }
         }
 
 
         private void ActivateSteamGuard_Click(object sender, EventArgs e)
         {
-            if (SteamGuardText2.Text == "ENABLE")
-            {
-                MessageBox.Show("Steam guard is enable for this account");
-            }
-            else if (SteamGuardText2.Text == "DISABLE" && comboBox1.SelectedIndex >= 0)
+            if (comboBox1.SelectedIndex >= 0)
             {
                 User user = users[comboBox1.SelectedIndex];
-                CreateSteamAuthLink newfrm = new CreateSteamAuthLink(user.userName, user.password);
-                newfrm.Show();
+                if (user.steamGuardLink.Length <= 0)
+                {
+                    CreateSteamAuthLink newfrm = new CreateSteamAuthLink(user.userName, user.password);
+                    newfrm.Show();
+                }
+                else MessageBox.Show("Steam Guard active on this account", "SteamAuth");
             }
+            else MessageBox.Show("Select aacount before activate Steam Guard");
         }
 
         private void LoginAccount(string login, string pass, string steamGuadLink)
@@ -164,7 +158,7 @@ namespace SteamLogger
                 Thread.Sleep(100);
                 steamGuardWindow = GetSteamGuardWindow();
             }
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             foreach (char c in code.ToCharArray())
             {
                 SendKey(steamGuardWindow, c);
@@ -282,6 +276,23 @@ namespace SteamLogger
         {
             SendMessage(hwnd, WM_KEYDOWN, VK_RETURN, IntPtr.Zero);
             SendMessage(hwnd, WM_KEYUP, VK_RETURN, IntPtr.Zero);
+        }
+        public void createAllUsersAndCheckSteamGuard()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\SteamAuth\users.txt";
+            if (File.Exists(path))
+            {
+                users.Clear();
+                comboBox1.Items.Clear();
+                List<string> lines = File.ReadAllLines(path).ToList();
+
+                foreach (var line in lines)
+                {
+                    string[] entries = line.Split("/ /,/ /");
+                    users.Add(new User(entries[0], entries[1], entries[2]));
+                    comboBox1.Items.Add(entries[0]);
+                }
+            }
         }
     }
 

@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SteamAuth;
+using System.Linq;
 
 namespace SteamLogger
 {
@@ -46,10 +47,36 @@ namespace SteamLogger
         {
             Task.Factory.StartNew(Console);
         }
-
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\SteamAuth";
         private void v2_Click(object sender, EventArgs e)
         {
-            
+            string usersPath = path + @"\users.txt";
+            string secretsPath = path + @"\secrets.txt";
+            if (!File.Exists(secretsPath))
+            {
+                MessageBox.Show("Before usage second variant, check how to usage with on github\nLINK", "SteamAuth");
+            }
+            else
+            {
+                List<string> lines = File.ReadAllLines(secretsPath).ToList();
+
+                foreach (string line in lines)
+                {
+                    string[] entries = line.Split(" ");
+                    if (entries[0] == login1)
+                    {
+                        string[] lines2 = File.ReadAllLines(usersPath);
+                        int index = Array.IndexOf(lines2, login1 + "/ /,/ /" + pass + "/ /,/ /");
+                        lines2[index] += entries[1];
+                        File.WriteAllLines(usersPath, lines2);
+                        File.Delete(secretsPath);
+                        MessageBox.Show("success true", "SteamAuth");
+                        Close();
+                        return;
+                    }
+                }      
+            }
+            Close();
         }
 
         private void Console() 
@@ -61,8 +88,8 @@ namespace SteamLogger
                     System.Console.WriteLine("login with param: " + login1 + ", " + pass);
                     string username = login1;
                     string password = pass;
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\SteamAuth\users.txt";
-                    string[] lines = File.ReadAllLines(path);
+                    string userPaht = path+@"\users.txt";
+                    string[] lines = File.ReadAllLines(userPaht);
                     int index = Array.IndexOf(lines, username + "/ /,/ /" + password + "/ /,/ /");
                     UserLogin login = new UserLogin(username, password);
                     LoginResult response = LoginResult.BadCredentials;
