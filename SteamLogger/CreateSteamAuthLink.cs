@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using SteamAuth;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace SteamLogger
 {
@@ -122,8 +123,18 @@ namespace SteamLogger
 
                     try
                     {
+                        string sgFile = JsonConvert.SerializeObject(linker.LinkedAccount, Formatting.Indented);
+                        string fileName = path + @"\SecretsUsers\" + linker.LinkedAccount.AccountName + ".maFile";
+                        if (!Directory.Exists(path + @"\SecretsUsers")) Directory.CreateDirectory(path + @"\SecretsUsers");
+                        if (!File.Exists(fileName))
+                        {
+                            StreamWriter sw = File.CreateText(fileName);
+                            sw.Flush();
+                            sw.Dispose();
+                        }
+                        File.WriteAllText(fileName, sgFile);
                         lines[index] += linker.LinkedAccount.SharedSecret;
-                        File.WriteAllLines(path, lines);
+                        File.WriteAllLines(userPaht, lines);
                     }
                     catch (Exception e)
                     {
