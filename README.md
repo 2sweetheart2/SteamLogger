@@ -1,4 +1,4 @@
-# <p align="center">SteamLogger v1.0</p>
+# <p align="center">SteamLogger v1.2</p>
 ## EN
 this program replaces the login/change of a Steam account with Steam Guard support
 ### Activate Steam Guard
