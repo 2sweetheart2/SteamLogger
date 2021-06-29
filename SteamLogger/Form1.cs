@@ -165,11 +165,11 @@ namespace SteamLogger
             {
                 SteamGuardAccount steamGuard = new SteamGuardAccount();
                 steamGuard.SharedSecret = user.link;
-                Task.Run(() => PutSteamGuardCode(steamGuard));
+                Task.Run(() => PutSteamGuardCode(steamGuard,true));
             }
 
         }
-        void PutSteamGuardCode(SteamGuardAccount steamGuard)
+        void PutSteamGuardCode(SteamGuardAccount steamGuard,bool wait)
         {
             IntPtr steamGuardWindow = GetSteamGuardWindow();
             while (steamGuardWindow.Equals(IntPtr.Zero))
@@ -179,7 +179,7 @@ namespace SteamLogger
             }
             Process steamGuardProcess = WaitForSteamProcess(steamGuardWindow);
             steamGuardProcess.WaitForInputIdle();
-            Thread.Sleep(2000);
+            if(wait) Thread.Sleep(2000);
             foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
             {
                 SendKey(steamGuardWindow, c);
@@ -216,7 +216,7 @@ namespace SteamLogger
                 {
                     var steamGuard = new SteamGuardAccount();
                     steamGuard.SharedSecret = user.link;
-                    Task.Run(() => PutSteamGuardCode(steamGuard.GenerateSteamGuardCode(), false));
+                    Task.Run(() => PutSteamGuardCode(steamGuard, false));
                     MessageBox.Show(steamGuard.GenerateSteamGuardCode(), "Steam Guard code");
                 }
                 else MessageBox.Show("activate Guard Code before generate him");
