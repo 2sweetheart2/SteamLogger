@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -11,7 +10,7 @@ using SteamAuth;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace SteamLogger
 {
@@ -25,9 +24,9 @@ namespace SteamLogger
             public string link { get; set; }
         }
 
-        public List<User> users = new List<User>();
+        
         public static string MainPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+@"\SteamAuth";
-        public static string UsersPath = MainPath + @"\users.txt";
+        public static string UsersPath = MainPath + @"\users.json";
         public static string SecretstPath = MainPath + @"\SecretsUsers";
         public MainForm()
         {
@@ -35,7 +34,7 @@ namespace SteamLogger
         }
 
 
-
+        public List<User> users = new List<User>();
         private void load_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex >= 0)
@@ -44,17 +43,19 @@ namespace SteamLogger
                 LoginAccount(user.name, user.password, user.link);
             }
             else MessageBox.Show("select account before load him", "SteamAuth");
+
         }
 
         private void remove_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex >= 0)
             {
-                List<string> lines = File.ReadAllLines(UsersPath).ToList();
-                lines.RemoveAt(comboBox1.SelectedIndex);
-                File.WriteAllLines(UsersPath, lines);
-                users.RemoveAt(comboBox1.SelectedIndex);
-                comboBox1.Items.Remove(comboBox1.SelectedItem);
+                int index = comboBox1.SelectedIndex;
+                comboBox1.Items.RemoveAt(index);
+                comboBox1.Text = "";
+                users.RemoveAt(index);
+                File.WriteAllText(UsersPath, ListToJsonString(users));
+                
             }
             else MessageBox.Show("select account before delete him", "SteamAuth");
         }
@@ -64,16 +65,13 @@ namespace SteamLogger
             if (loginBox.Text.Length > 0 && passwordBox.Text.Length > 0)
             {
                 User user = new User() { name = loginBox.Text, password = passwordBox.Text, link = "" };
-                users.Add(user);
                 comboBox1.Items.Add(loginBox.Text);
-                List<string> lines = File.ReadAllLines(UsersPath).ToList();
-                lines.Add(parseToJson(user.name, user.password, user.link));
-                File.WriteAllLines(UsersPath, lines);
+                AddUserToFile(user);
+                users.Add(user);
                 loginBox.Text = "";
                 passwordBox.Text = "";
             }
         }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -85,18 +83,27 @@ namespace SteamLogger
                 sw.Flush();
                 sw.Dispose();
             }
-            if (!File.ReadAllText(UsersPath).StartsWith('{')) 
+            if (File.Exists(MainPath + @"\users.txt"))
             {
-                List<string> lines = File.ReadAllLines(UsersPath).ToList();
-                for(int i =0;i<lines.Count;i++)
+                string aPath = MainPath + @"\users.txt";
+                List<User> newUsers = new List<User>();
+                if (!File.ReadAllLines(aPath)[0].StartsWith('['))
                 {
-                    string[] a = lines[i].Split("/ /,/ /");
-                    lines[i] = parseToJson(a[0],a[1],a[2]);
-                    
+                    string[] lines2 = File.ReadAllLines(aPath);
+                    foreach (string line in lines2)
+                    {
+                        newUsers.Add(JsonConvert.DeserializeObject<User>(line));
+                    }    
                 }
-                File.WriteAllLines(UsersPath, lines);
+                else
+                {
+                    newUsers = StringToListUsers(File.ReadAllText(aPath));
+                }
+                File.WriteAllText(UsersPath, ListToJsonString(newUsers));
+                File.Delete(aPath);
             }
-            createAllUsersAndCheckSteamGuard();
+            OpenFileAndRead();
+            if (users.Count > 0) comboBox1.SelectedIndex = 0;
         }
 
 
@@ -110,7 +117,7 @@ namespace SteamLogger
                     CreateSteamAuthLink newfrm = new CreateSteamAuthLink(user.name, user.password);
                     newfrm.Show();
                 }
-                else MessageBox.Show("Steam Guard active on this account", "SteamAuth");
+                else MessageBox.Show("Steam Guard active for this account", "SteamAuth");
             }
             else MessageBox.Show("Select aacount before activate Steam Guard");
         }
@@ -130,11 +137,11 @@ namespace SteamLogger
             {
                 var steamGuard = new SteamGuardAccount();
                 steamGuard.SharedSecret = user.link;
-                Task.Run(() => PutSteamGuardCode(steamGuard.GenerateSteamGuardCode()));
+                Task.Run(() => PutSteamGuardCode(steamGuard.GenerateSteamGuardCode(),true));
             }
 
         }
-        void PutSteamGuardCode(string code)
+        void PutSteamGuardCode(string code, bool wait)
         {
             IntPtr steamGuardWindow = GetSteamGuardWindow();
             while (steamGuardWindow.ToInt32().Equals(0))
@@ -142,7 +149,7 @@ namespace SteamLogger
                 Thread.Sleep(100);
                 steamGuardWindow = GetSteamGuardWindow();
             }
-            Thread.Sleep(5000);
+            if(wait) Thread.Sleep(5000);
             foreach (char c in code.ToCharArray())
             {
                 SendKey(steamGuardWindow, c);
@@ -179,6 +186,7 @@ namespace SteamLogger
                 {
                     var steamGuard = new SteamGuardAccount();
                     steamGuard.SharedSecret = user.link;
+                    Task.Run(() => PutSteamGuardCode(steamGuard.GenerateSteamGuardCode(), false));
                     MessageBox.Show(steamGuard.GenerateSteamGuardCode(), "Steam Guard code");
                 }
                 else MessageBox.Show("activate Guard Code before generate him");
@@ -262,29 +270,41 @@ namespace SteamLogger
             SendMessage(hwnd, WM_KEYDOWN, VK_RETURN, IntPtr.Zero);
             SendMessage(hwnd, WM_KEYUP, VK_RETURN, IntPtr.Zero);
         }
-        public void createAllUsersAndCheckSteamGuard()
-       {
-            users.Clear();
-            comboBox1.Items.Clear();
-            List<string> lines = File.ReadAllLines(UsersPath).ToList();
 
-            foreach (var line in lines)
-            {
-                User user = JsonToUser(line);
-                users.Add(user);
-                comboBox1.Items.Add(user.name);
-            }
-        }
-        public static string parseToJson(string v1, string v2, string v3)
+        public static string ListToJsonString(List<User> users)
         {
-            string json = JsonSerializer.Serialize<User>(new User() { name = v1, password = v2, link = v3 });
+            var json = JsonConvert.SerializeObject(users);
             return json;
         }
-        public static User JsonToUser(string json)
+        public List<User> StringToListUsers(string a)
         {
-            User user = JsonSerializer.Deserialize<User>(json);
-            return user;
+            List<User> obj = new List<User>();
+            obj = JsonConvert.DeserializeObject<List<User>>(a);
+            return obj;
         }
+        public void AddUserToFile(User user)
+        {
+            List<User> usersList = new List<User>();
+            if (File.ReadAllText(UsersPath).Length > 0)
+            {
+                usersList = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
+            }
+            usersList.Add(user);
+            File.WriteAllText(UsersPath, ListToJsonString(usersList));
+        }
+        
+        public void OpenFileAndRead()
+        {
+            if (File.ReadAllText(UsersPath).Length > 0)
+            {
+                users = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
+                foreach (User user in users)
+                {
+                    comboBox1.Items.Add(user.name);
+                }
+            }
+        }
+
     }
 
 

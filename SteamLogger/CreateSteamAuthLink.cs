@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using SteamAuth;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace SteamLogger
@@ -41,7 +40,7 @@ namespace SteamLogger
             Task.Factory.StartNew(Console);
         }
         public static string MainPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\SteamAuth";
-        public static string UsersPath = MainPath + @"\users.txt";
+        public static string UsersPath = MainPath + @"\users.json";
         public static string SecretstPath = MainPath + @"\SecretsUsers";
         public static string SecretUser = MainPath + @"\secrets.txt";
         public class User
@@ -50,15 +49,16 @@ namespace SteamLogger
             public string password { get; set; }
             public string link { get; set; }
         }
-        public static string parseToJson(string v1, string v2, string v3)
+        public static string ListToJsonString(List<User> users)
         {
-            string json = System.Text.Json.JsonSerializer.Serialize<User>(new User() { name = v1, password = v2, link = v3 });
+            var json = JsonConvert.SerializeObject(users);
             return json;
         }
-        public static User JsonToUser(string json)
+        public List<User> StringToListUsers(string a)
         {
-            User user = System.Text.Json.JsonSerializer.Deserialize<User>(json);
-            return user;
+            List<User> obj = new List<User>();
+            obj = JsonConvert.DeserializeObject<List<User>>(a);
+            return obj;
         }
         private void v2_Click(object sender, EventArgs e)
         {
@@ -68,25 +68,40 @@ namespace SteamLogger
             }
             else
             {
-                List<string> lines = new List<string>();
-                User target = new User() { };
-                foreach(string line in File.ReadAllLines(UsersPath))
+                List<User> users = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
+                int index = -1;
+                for(int i = 0; i < users.Count; i++)
                 {
-                    lines.Add(line);
-                    if (JsonToUser(line).name.Equals(login1)) target = JsonToUser(line);
-                }
-                foreach(string line in File.ReadAllLines(SecretUser))
-                {
-                    if(line.Split(" ")[0].Equals(login1))
+                    if (users[i].name.Equals(login1))
                     {
-                        int index = lines.IndexOf(parseToJson(target.name, target.password, target.link));
-                        lines[index] = parseToJson(target.name, target.password, line.Split(" ")[1]);
-                        File.WriteAllLines(UsersPath, lines);
+                        index = i;
+                    }
+                }
+                string[] lines = File.ReadAllLines(SecretUser);
+                foreach (string line in lines)
+                {
+                    if (line.Split(" ")[0].Equals(login1))
+                    {
+                        if (index >= 0)
+                        {
+                            users[index].link = line.Split(" ")[1];
+                            File.WriteAllText(UsersPath, ListToJsonString(users));
+                            MessageBox.Show("complete", "SteamAuth");
+                            File.Delete(SecretUser);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("account not found", "SteamAuth");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("account not found", "SteamAuth");
                         return;
                     }
-
                 }
-                MessageBox.Show("succes", "SteamAuth");
                 this.Close();
             }
             Close();
@@ -101,8 +116,8 @@ namespace SteamLogger
                     System.Console.WriteLine("login with param: " + login1 + ", " + pass);
                     string username = login1;
                     string password = pass;
-                    string[] lines = File.ReadAllLines(UsersPath);
-                    int index = Array.IndexOf(lines, parseToJson(login1, pass, ""));
+                    List<User> users = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
+                    int index = users.IndexOf(new User() { name = login1, password = pass, link = "" });
                     UserLogin login = new UserLogin(username, password);
                     LoginResult response = LoginResult.BadCredentials;
                     while ((response = login.DoLogin()) != LoginResult.LoginOkay)
@@ -152,8 +167,8 @@ namespace SteamLogger
                             sw.Dispose();
                         }
                         File.WriteAllText(fileName, sgFile);
-                        lines[index] = parseToJson(login1,pass, linker.LinkedAccount.SharedSecret);
-                        File.WriteAllLines(UsersPath, lines);
+                        users[index].link = linker.LinkedAccount.SharedSecret;
+                        File.WriteAllText(UsersPath, ListToJsonString(users));
                     }
                     catch (Exception e)
                     {
