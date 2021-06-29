@@ -115,6 +115,34 @@ namespace SteamLogger
             else MessageBox.Show("Select aacount before activate Steam Guard");
         }
 
+        public static Process WaitForSteamProcess(IntPtr hwnd)
+        {
+            Process process = null;
+            while (process == null)
+            {
+                int procId = 0;
+                GetWindowThreadProcessId(hwnd, out procId);
+
+                // Wait for valid process id from handle.
+                while (procId == 0)
+                {
+                    Thread.Sleep(100);
+                    GetWindowThreadProcessId(hwnd, out procId);
+                }
+
+                try
+                {
+                    process = Process.GetProcessById(procId);
+                }
+                catch
+                {
+                    process = null;
+                }
+            }
+
+            return process;
+        }
+
         private void LoginAccount(string login, string pass, string steamGuadLink)
         {
             foreach (var process in Process.GetProcessesByName("steam"))
@@ -128,22 +156,24 @@ namespace SteamLogger
             User user = users[comboBox1.SelectedIndex];
             if (user.link.Length > 0)
             {
-                var steamGuard = new SteamGuardAccount();
+                SteamGuardAccount steamGuard = new SteamGuardAccount();
                 steamGuard.SharedSecret = user.link;
-                Task.Run(() => PutSteamGuardCode(steamGuard.GenerateSteamGuardCode()));
+                Task.Run(() => PutSteamGuardCode(steamGuard));
             }
 
         }
-        void PutSteamGuardCode(string code)
+        void PutSteamGuardCode(SteamGuardAccount steamGuard)
         {
             IntPtr steamGuardWindow = GetSteamGuardWindow();
-            while (steamGuardWindow.ToInt32().Equals(0))
+            while (steamGuardWindow.Equals(IntPtr.Zero))
             {
                 Thread.Sleep(100);
                 steamGuardWindow = GetSteamGuardWindow();
             }
-            Thread.Sleep(5000);
-            foreach (char c in code.ToCharArray())
+            Process steamGuardProcess = WaitForSteamProcess(steamGuardWindow);
+            steamGuardProcess.WaitForInputIdle();
+            Thread.Sleep(2000);
+            foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
             {
                 SendKey(steamGuardWindow, c);
             }
@@ -199,11 +229,13 @@ namespace SteamLogger
         static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, IntPtr lParam);
         [DllImport("user32.dll")]
         static extern bool GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-        [DllImport("User32.dll")]
+        [DllImport("user32.dll")]
         static extern void GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        public static extern int GetWindowThreadProcessId(IntPtr handle, out int processId);
 
         private static bool EnumWindow(IntPtr hWnd, IntPtr lParam)
         {
@@ -213,10 +245,10 @@ namespace SteamLogger
             StringBuilder windowTextSb = new StringBuilder(256);
             GetWindowText(hWnd, windowTextSb, windowTextSb.Capacity + 1);
             string windowText = windowTextSb.ToString();
-            if (className.Equals("vguiPopupWindow") ||
-                windowText.StartsWith("Steam Guard") ||
+            if (className.Equals("vguiPopupWindow") &&
+                (windowText.StartsWith("Steam Guard") ||
                 windowText.StartsWith("Steam 令牌") ||
-                windowText.StartsWith("Steam ガード"))
+                windowText.StartsWith("Steam ガード")))
             {
                 GCHandle gcChildhandlesList = GCHandle.FromIntPtr(lParam);
 
@@ -230,17 +262,17 @@ namespace SteamLogger
         {
             List<IntPtr> validHandles = new List<IntPtr>();
 
-            GCHandle gcValidhandlesList = GCHandle.Alloc(validHandles);
-            IntPtr pointerChildHandlesList = GCHandle.ToIntPtr(gcValidhandlesList);
+            GCHandle gcValidHandlesList = GCHandle.Alloc(validHandles);
+            IntPtr pointerValidHandlesList = GCHandle.ToIntPtr(gcValidHandlesList);
 
             try
             {
                 EnumWindowProc validProc = new EnumWindowProc(EnumWindow);
-                EnumWindows(validProc, pointerChildHandlesList);
+                EnumWindows(validProc, pointerValidHandlesList);
             }
             finally
             {
-                gcValidhandlesList.Free();
+                gcValidHandlesList.Free();
             }
 
             if (validHandles.Count > 0)
