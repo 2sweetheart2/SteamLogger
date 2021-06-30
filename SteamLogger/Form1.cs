@@ -86,20 +86,24 @@ namespace SteamLogger
             if (File.Exists(MainPath + @"\users.txt"))
             {
                 string aPath = MainPath + @"\users.txt";
-                List<User> newUsers = new List<User>();
-                if (!File.ReadAllLines(aPath)[0].StartsWith('['))
+                if (File.ReadAllText(aPath).Length > 0)
                 {
-                    string[] lines2 = File.ReadAllLines(aPath);
-                    foreach (string line in lines2)
+                    
+                    List<User> newUsers = new List<User>();
+                    if (!File.ReadAllLines(aPath)[0].StartsWith('['))
                     {
-                        newUsers.Add(JsonConvert.DeserializeObject<User>(line));
-                    }    
+                        string[] lines2 = File.ReadAllLines(aPath);
+                        foreach (string line in lines2)
+                        {
+                            newUsers.Add(JsonConvert.DeserializeObject<User>(line));
+                        }
+                    }
+                    else
+                    {
+                        newUsers = StringToListUsers(File.ReadAllText(aPath));
+                    }
+                    File.WriteAllText(UsersPath, ListToJsonString(newUsers));
                 }
-                else
-                {
-                    newUsers = StringToListUsers(File.ReadAllText(aPath));
-                }
-                File.WriteAllText(UsersPath, ListToJsonString(newUsers));
                 File.Delete(aPath);
             }
             OpenFileAndRead();
