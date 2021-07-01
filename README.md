@@ -2,7 +2,7 @@
 ## EN
 this program replaces the login/change of a Steam account with Steam Guard support
 
-**[download](https://github.com/2sweetheart2/SteamLogger/releases/tag/1.2)**
+**[download](https://github.com/2sweetheart2/SteamLogger/releases/)**
 ### Activate Steam Guard
 there are two ways to activate Steam Guard:
 
@@ -18,7 +18,7 @@ there are two ways to activate Steam Guard:
 ## RU
 это программа является менеджером аккаунтов стим. С её помощью можно входит/менять аккаунты нажатием одной кнопки
 
-**[скачать](https://github.com/2sweetheart2/SteamLogger/releases/tag/1.2)**
+**[скачать](https://github.com/2sweetheart2/SteamLogger/releases/)**
 ### Активация Steam Guard
 есть два способа активировать Steam Guard для аккаунта:
 
