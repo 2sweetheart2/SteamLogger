@@ -31,6 +31,7 @@ namespace SteamLogger
         public MainForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
 

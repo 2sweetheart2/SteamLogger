@@ -21,7 +21,7 @@ namespace SteamLogger
         }
         private void CreateSteamAuthLink_Load(object sender, EventArgs e)
         {
-
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
 
