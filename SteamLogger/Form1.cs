@@ -28,10 +28,13 @@ namespace SteamLogger
         public static string MainPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+@"\SteamAuth";
         public static string UsersPath = MainPath + @"\users.json";
         public static string SecretstPath = MainPath + @"\SecretsUsers";
+        public static string SettingsPath = MainPath + @"\settings.txt";
         public MainForm()
         {
+            
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            
         }
 
 
@@ -73,8 +76,64 @@ namespace SteamLogger
                 passwordBox.Text = "";
             }
         }
+        bool auto_run = false;
+        bool roll_up_after_run = false;
+        bool close_after_run = false;
+        int auto_start_up_index = 0;
+        private void getSettings()
+        {
+            if (!File.Exists(SettingsPath))
+            {
+                StreamWriter sw = File.CreateText(UsersPath);
+                sw.Flush();
+                sw.Dispose();
+                List<string> lines = new List<string>() {"auto_run=false", "roll_up_after_run=false","close_after_run=false" };
+                File.WriteAllLines(SettingsPath, lines);
+                auto_run = false;
+                roll_up_after_run = false;
+                close_after_run = false;
+                auto_start_up_index = 0;
+            }
+            else
+            {
+                string[] lines = File.ReadAllLines(SettingsPath);
+                auto_run = bool.Parse(lines[0].Split("=")[1]);
+                if (!auto_run)
+                {
+                    roll_up_after_run = bool.Parse(lines[1].Split("=")[1]);
+                    close_after_run = bool.Parse(lines[2].Split("=")[1]);
+                    auto_start_up_index = int.Parse(lines[3].Split("=")[1]);
+                }
+            }
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            getSettings();
+
+            if (auto_run)
+            {
+                string ExePath = System.Windows.Forms.Application.ExecutablePath;
+                string a = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\", "SteamLogger", "null");
+                if (a.Equals("null"))
+                {
+                    RegistryKey reg;
+                    reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
+                    reg.SetValue("SteamLogger", ExePath);
+                    reg.Close();
+                }
+                
+            }
+            else
+            {
+                string a = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\", "SteamLogger", "null");
+                if (!a.Equals("null"))
+                {
+                    RegistryKey reg;
+                    reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
+                    reg.DeleteValue("SteamLogger");
+                    reg.Close();
+                }
+            }  
             CheckForIllegalCrossThreadCalls = false;
             if (!Directory.Exists(MainPath)) Directory.CreateDirectory(MainPath);
             if (!Directory.Exists(SecretstPath)) Directory.CreateDirectory(SecretstPath);
@@ -109,8 +168,11 @@ namespace SteamLogger
             }
             OpenFileAndRead();
             if (users.Count > 0) comboBox1.SelectedIndex = 0;
+            if (auto_run && auto_start_up_index >= 0)
+            {
+                LoginAccount(target.name, target.password, target.link);
+            }
         }
-
 
         private void ActivateSteamGuard_Click(object sender, EventArgs e)
         {
@@ -329,7 +391,7 @@ namespace SteamLogger
             usersList.Add(user);
             File.WriteAllText(UsersPath, ListToJsonString(usersList));
         }
-        
+        public User target;
         public void OpenFileAndRead()
         {
             if (File.ReadAllText(UsersPath).Length > 0)
@@ -339,9 +401,27 @@ namespace SteamLogger
                 {
                     comboBox1.Items.Add(user.name);
                 }
+                if (auto_run && auto_start_up_index >= 0) target = users[auto_start_up_index];
+
             }
         }
 
+        private void settingsBut_Click(object sender, EventArgs e)
+        {
+            Settings setting = new Settings();
+            setting.auto_run = auto_run;
+            setting.rool_up = roll_up_after_run;
+            setting.close_after = close_after_run;
+            setting.path = SettingsPath;
+            setting.users = users;
+            setting.Show();
+        }
+        bool use = false;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+
+        }
     }
 
 
