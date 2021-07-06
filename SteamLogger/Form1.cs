@@ -79,7 +79,7 @@ namespace SteamLogger
         bool auto_run = false;
         bool roll_up_after_run = false;
         bool close_after_run = false;
-        int auto_start_up_index = 0;
+        int auto_start_up_index = -1;
         private void getSettings()
         {
             if (!File.Exists(SettingsPath))
@@ -92,7 +92,7 @@ namespace SteamLogger
                 auto_run = false;
                 roll_up_after_run = false;
                 close_after_run = false;
-                auto_start_up_index = 0;
+                auto_start_up_index = -1;
             }
             else
             {
@@ -108,6 +108,8 @@ namespace SteamLogger
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            CheckForIllegalCrossThreadCalls = false;
+            if (!Directory.Exists(MainPath)) Directory.CreateDirectory(MainPath);
             getSettings();
 
             if (auto_run)
@@ -134,8 +136,6 @@ namespace SteamLogger
                     reg.Close();
                 }
             }  
-            CheckForIllegalCrossThreadCalls = false;
-            if (!Directory.Exists(MainPath)) Directory.CreateDirectory(MainPath);
             if (!Directory.Exists(SecretstPath)) Directory.CreateDirectory(SecretstPath);
             if (!File.Exists(UsersPath))
             {
@@ -143,34 +143,15 @@ namespace SteamLogger
                 sw.Flush();
                 sw.Dispose();
             }
-            if (File.Exists(MainPath + @"\users.txt"))
-            {
-                string aPath = MainPath + @"\users.txt";
-                if (File.ReadAllText(aPath).Length > 0)
-                {
-                    
-                    List<User> newUsers = new List<User>();
-                    if (!File.ReadAllLines(aPath)[0].StartsWith('['))
-                    {
-                        string[] lines2 = File.ReadAllLines(aPath);
-                        foreach (string line in lines2)
-                        {
-                            newUsers.Add(JsonConvert.DeserializeObject<User>(line));
-                        }
-                    }
-                    else
-                    {
-                        newUsers = StringToListUsers(File.ReadAllText(aPath));
-                    }
-                    File.WriteAllText(UsersPath, ListToJsonString(newUsers));
-                }
-                File.Delete(aPath);
-            }
             OpenFileAndRead();
             if (users.Count > 0) comboBox1.SelectedIndex = 0;
             if (auto_run && auto_start_up_index >= 0)
             {
-                LoginAccount(target.name, target.password, target.link);
+                if (users.Count - 1 < auto_start_up_index)
+                {
+                    User user = users[auto_start_up_index];
+                    LoginAccount(user.name, user.password, user.link);
+                }
             }
         }
 
@@ -391,7 +372,6 @@ namespace SteamLogger
             usersList.Add(user);
             File.WriteAllText(UsersPath, ListToJsonString(usersList));
         }
-        public User target;
         public void OpenFileAndRead()
         {
             if (File.ReadAllText(UsersPath).Length > 0)
@@ -401,7 +381,6 @@ namespace SteamLogger
                 {
                     comboBox1.Items.Add(user.name);
                 }
-                if (auto_run && auto_start_up_index >= 0) target = users[auto_start_up_index];
 
             }
         }
