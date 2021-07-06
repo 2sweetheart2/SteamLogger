@@ -29,7 +29,6 @@ namespace SteamLogger
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.loginBox = new System.Windows.Forms.TextBox();
@@ -45,7 +44,6 @@ namespace SteamLogger
             this.ActivateSteamGuard = new System.Windows.Forms.Button();
             this.generateGuard = new System.Windows.Forms.Button();
             this.settingsBut = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // comboBox1
@@ -135,12 +133,6 @@ namespace SteamLogger
             this.settingsBut.UseVisualStyleBackColor = true;
             this.settingsBut.Click += new System.EventHandler(this.settingsBut_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -182,7 +174,6 @@ namespace SteamLogger
         private System.Windows.Forms.Button ActivateSteamGuard;
         private System.Windows.Forms.Button generateGuard;
         private System.Windows.Forms.Button settingsBut;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 

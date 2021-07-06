@@ -40,7 +40,7 @@ namespace SteamLogger
 
 
         public List<User> users = new List<User>();
-        private void load_Click(object sender, EventArgs e)
+        public void load_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex >= 0)
             {
@@ -80,7 +80,7 @@ namespace SteamLogger
         bool auto_run = false;
         bool roll_up_after_run = false;
         bool close_after_run = false;
-        int auto_start_up_index = -1;
+        int auto_start_up_index;
         private void getSettings()
         {
             if (!File.Exists(SettingsPath))
@@ -103,7 +103,7 @@ namespace SteamLogger
                 {
                     roll_up_after_run = bool.Parse(lines[1].Split("=")[1]);
                     close_after_run = bool.Parse(lines[2].Split("=")[1]);
-                    auto_start_up_index = int.Parse(lines[3].Split("=")[1]);
+                    Int32.TryParse(lines[3].Split("=")[1],out auto_start_up_index);
                 }
             }
         }
@@ -147,13 +147,18 @@ namespace SteamLogger
                 sw.Dispose();
             }
             OpenFileAndRead();
-            if (users.Count > 0) comboBox1.SelectedIndex = 0;
+            loginBox.Text = ""+auto_start_up_index;
+            if(users.Count-1 >= auto_start_up_index) comboBox1.SelectedIndex = auto_start_up_index;
             if (auto_run && auto_start_up_index >= 0)
             {
-                if (users.Count - 1 < auto_start_up_index)
+                try
                 {
-                    User user = users[auto_start_up_index];
-                    LoginAccount(user.name, user.password, user.link);
+                    Object a = null;
+                    load_Click(a, EventArgs.Empty);
+                }
+                catch
+                {
+                    MessageBox.Show("auto stat up account failed");
                 }
             }
         }
@@ -397,12 +402,6 @@ namespace SteamLogger
             setting.path = SettingsPath;
             setting.users = users;
             setting.Show();
-        }
-        bool use = false;
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
-
         }
     }
 
