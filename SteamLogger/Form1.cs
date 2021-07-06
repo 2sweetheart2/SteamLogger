@@ -88,7 +88,7 @@ namespace SteamLogger
                 StreamWriter sw = File.CreateText(UsersPath);
                 sw.Flush();
                 sw.Dispose();
-                List<string> lines = new List<string>() {"auto_run=false", "roll_up_after_run=false","close_after_run=false" };
+                List<string> lines = new List<string>() {"auto_run=false", "roll_up_after_run=false","close_after_run=false","auto_start_up_index=-1"};
                 File.WriteAllLines(SettingsPath, lines);
                 auto_run = false;
                 roll_up_after_run = false;
