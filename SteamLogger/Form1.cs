@@ -11,6 +11,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace SteamLogger
 {
@@ -114,13 +115,14 @@ namespace SteamLogger
 
             if (auto_run)
             {
-                string ExePath = System.Windows.Forms.Application.ExecutablePath;
+                string b = Environment.CurrentDirectory+@"\SteamLogger.exe";
+                String fullPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
                 string a = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\", "SteamLogger", "null");
                 if (a.Equals("null"))
                 {
                     RegistryKey reg;
                     reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
-                    reg.SetValue("SteamLogger", ExePath);
+                    reg.SetValue("SteamLogger", b);
                     reg.Close();
                 }
                 
