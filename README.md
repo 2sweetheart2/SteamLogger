@@ -15,6 +15,9 @@ there are two ways to activate Steam Guard:
 
 
 **NOTICE:** if the steam guard code is not entered by itself, click on the code generation button with an open window to enter it
+
+### Auto-loging
+auto-login to the account is performed by running the program with the parameters. An example of the parameter is "- login MyAccountName true". the last parameter is a bool type (false or true) and is responsible for closing the program after logging in to the account
 ## RU
 это программа является менеджером аккаунтов стим. С её помощью можно входит/менять аккаунты нажатием одной кнопки
 
@@ -30,4 +33,7 @@ there are two ways to activate Steam Guard:
 **Мы не несём ответственности за ваши аккаунты**
 
 **ФИЧА:** если код Steam Guard не ввёлся сам в окно для его ввода, то нажмите на кнопку генерации кода с открыт окном для его ввода
+
+### Автовход
+автовход в аккаунт производится путём запуска программы с параметрами. Пример параметра - "-login MyAccountName true". последний параметр является bool типом (false или true) и отвечает за закрытие программы после входа в аккаунт
 
