@@ -43,6 +43,7 @@ namespace SteamLogger
             this.SteamGuardText2 = new System.Windows.Forms.Label();
             this.ActivateSteamGuard = new System.Windows.Forms.Button();
             this.generateGuard = new System.Windows.Forms.Button();
+            this.edit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -125,10 +126,18 @@ namespace SteamLogger
             this.generateGuard.UseVisualStyleBackColor = true;
             this.generateGuard.Click += new System.EventHandler(this.generateGuard_Click);
             // 
+            // edit
+            // 
+            resources.ApplyResources(this.edit, "edit");
+            this.edit.Name = "edit";
+            this.edit.UseVisualStyleBackColor = true;
+            this.edit.Click += new System.EventHandler(this.edit_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.edit);
             this.Controls.Add(this.generateGuard);
             this.Controls.Add(this.ActivateSteamGuard);
             this.Controls.Add(this.SteamGuardText2);
@@ -164,6 +173,7 @@ namespace SteamLogger
         private System.Windows.Forms.Label SteamGuardText2;
         private System.Windows.Forms.Button ActivateSteamGuard;
         private System.Windows.Forms.Button generateGuard;
+        private System.Windows.Forms.Button edit;
     }
 }
 

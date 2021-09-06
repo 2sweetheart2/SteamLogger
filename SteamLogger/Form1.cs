@@ -42,16 +42,16 @@ namespace SteamLogger
                 if (args[0].Equals("-login"))
                 {
                     AutoStartUser = new User();
-                    if (args[1].Length <= 0 || args[2].Length <= 0)
+                    if (args[1].Length <= 0)
                     {
                         MessageBox.Show("uncorrect start params!", "SteamAuth");
                         return;
                     }
                     AutoStartUser.name = args[1];
-                    AutoStartUser.password = args[2];
-                    if(args.Length>=4) closeAfterEnter = Boolean.Parse(args[3]);
+                    if(args.Length>=3) closeAfterEnter = Boolean.Parse(args[2]);
                 }
-                MessageBox.Show(String.Format("Start account with login={0} password={1}",args[1],args[2]), "SteamAuth");
+                MessageBox.Show(String.Format("Start account with login={0}",args[1]), "SteamAuth");
+                
             }
         }
 
@@ -167,10 +167,10 @@ namespace SteamLogger
             {
                 foreach (User user in users)
                 {
-                    if (user.name.Equals(AutoStartUser.name) && user.password.Equals(AutoStartUser.password))
+                    if (user.name.Equals(AutoStartUser.name))
                     {
                         LoginAccount(user.name, user.password, user.link);
-                    }else LoginAccount(AutoStartUser.name, AutoStartUser.password, "");
+                    }
                 }
             }
 /*            loginBox.Text = ""+auto_start_up_index;
@@ -408,6 +408,26 @@ namespace SteamLogger
             usersList.Add(user);
             File.WriteAllText(UsersPath, ListToJsonString(usersList));
         }
+        public void EditUser(string oldname,string name, string pass)
+        {
+            List<User> usersList = new List<User>();
+            if (File.ReadAllText(UsersPath).Length > 0)
+            {
+                usersList = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
+            }
+            foreach(User user in usersList)
+            {
+                if (user.name.Equals(oldname))
+                {
+                    user.name = name;
+                    user.password = pass;
+                    comboBox1.Items[comboBox1.Items.IndexOf(oldname)] = name;
+                    users = usersList;
+                    continue;
+                }
+            }
+            File.WriteAllText(UsersPath, ListToJsonString(usersList));
+        }
         public void OpenFileAndRead()
         {
             if (File.ReadAllText(UsersPath).Length > 0)
@@ -421,6 +441,15 @@ namespace SteamLogger
             }
         }
 
+        private void edit_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex < 0) return;
+            User user = users[comboBox1.SelectedIndex];
+            editAccount eda = new editAccount(this, user.name, user.password);
+            eda.loginBox.Text = user.name;
+            eda.passBox.Text = user.password;
+            eda.Show();
+        }
     }
 
 
