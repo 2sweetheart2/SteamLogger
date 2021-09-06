@@ -25,17 +25,33 @@ namespace SteamLogger
             public string link { get; set; }
         }
 
-        
+        User AutoStartUser = null;
+        bool closeAfterEnter = false;
         public static string MainPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal)+@"\SteamAuth";
         public static string UsersPath = MainPath + @"\users.json";
         public static string SecretstPath = MainPath + @"\SecretsUsers";
         public static string SettingsPath = MainPath + @"\settings.txt";
-        public MainForm()
+        public MainForm(String[] args)
         {
             
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            
+            if( args != null && args.Length > 0)
+            {
+                
+                if (args[0].Equals("-login"))
+                {
+                    AutoStartUser = new User();
+                    if (args[1].Length <= 0)
+                    {
+                        MessageBox.Show("uncorrect start params!", "SteamAuth");
+                        return;
+                    }
+                    AutoStartUser.name = args[1];
+                    if(args.Length>=3) closeAfterEnter = Boolean.Parse(args[2]);
+                }
+                MessageBox.Show(String.Format("Start account with login={0} ",args[1]), "SteamAuth");
+            }
         }
 
 
@@ -77,7 +93,7 @@ namespace SteamLogger
                 passwordBox.Text = "";
             }
         }
-        bool auto_run = false;
+/*        bool auto_run = false;
         bool roll_up_after_run = false;
         bool close_after_run = false;
         int auto_start_up_index;
@@ -106,12 +122,11 @@ namespace SteamLogger
                     Int32.TryParse(lines[3].Split("=")[1],out auto_start_up_index);
                 }
             }
-        }
+        }*/
         private void MainForm_Load(object sender, EventArgs e)
-        {
-            CheckForIllegalCrossThreadCalls = false;
+        {  
             if (!Directory.Exists(MainPath)) Directory.CreateDirectory(MainPath);
-            getSettings();
+/*            getSettings();
 
             if (auto_run)
             {
@@ -138,7 +153,7 @@ namespace SteamLogger
                     reg.DeleteValue("SteamLogger");
                     reg.Close();
                 }
-            }  
+            }*/  
             if (!Directory.Exists(SecretstPath)) Directory.CreateDirectory(SecretstPath);
             if (!File.Exists(UsersPath))
             {
@@ -147,7 +162,18 @@ namespace SteamLogger
                 sw.Dispose();
             }
             OpenFileAndRead();
-            loginBox.Text = ""+auto_start_up_index;
+            if (AutoStartUser != null)
+            {
+                foreach (User user in users)
+                {
+                    if (user.name.Equals(AutoStartUser.name))
+                    {
+                        LoginAccount(user.name, user.password, user.link);
+                        return;
+                    }
+                }
+            }
+/*            loginBox.Text = ""+auto_start_up_index;
             if(users.Count-1 >= auto_start_up_index) comboBox1.SelectedIndex = auto_start_up_index;
             if (auto_run && auto_start_up_index >= 0)
             {
@@ -160,7 +186,7 @@ namespace SteamLogger
                 {
                     MessageBox.Show("auto stat up account failed");
                 }
-            }
+            }*/
         }
 
         private void ActivateSteamGuard_Click(object sender, EventArgs e)
@@ -216,16 +242,16 @@ namespace SteamLogger
             startInfo.FileName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam", "SteamExe", "null");
             startInfo.Arguments = " -login \"" + login + "\" \"" + pass + "\"";
             Process.Start(startInfo);
-            User user = users[comboBox1.SelectedIndex];
-            if (user.link.Length > 0)
+            if (steamGuadLink.Length > 0)
             {
                 SteamGuardAccount steamGuard = new SteamGuardAccount();
-                steamGuard.SharedSecret = user.link;
-                Task.Run(() => PutSteamGuardCode(steamGuard,true));
+                steamGuard.SharedSecret = steamGuadLink;
+                var t = Task.Run(() => PutSteamGuardCode(steamGuard,true));
+                t.Wait();
+                if (closeAfterEnter) Close();
             }
-
         }
-        void PutSteamGuardCode(SteamGuardAccount steamGuard,bool wait)
+        async void PutSteamGuardCode(SteamGuardAccount steamGuard,bool wait)
         {
             IntPtr steamGuardWindow = GetSteamGuardWindow();
             while (steamGuardWindow.Equals(IntPtr.Zero))
@@ -241,6 +267,7 @@ namespace SteamLogger
                 SendKey(steamGuardWindow, c);
             }
             SendEnter(steamGuardWindow);
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -380,6 +407,25 @@ namespace SteamLogger
             usersList.Add(user);
             File.WriteAllText(UsersPath, ListToJsonString(usersList));
         }
+
+        public void editUserAndSave(User user,string oldname)
+        {
+            List<User> usersList = new List<User>();
+            if (File.ReadAllText(UsersPath).Length > 0)
+            {
+                usersList = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
+            }
+            foreach (User us in usersList)
+            {
+                if (us.name.Equals(oldname))
+                {
+                    us.name = user.name;
+                    us.password = user.password;
+                    continue;
+                }
+            }
+            File.WriteAllText(UsersPath, ListToJsonString(usersList));
+        }
         public void OpenFileAndRead()
         {
             if (File.ReadAllText(UsersPath).Length > 0)
@@ -393,15 +439,30 @@ namespace SteamLogger
             }
         }
 
-        private void settingsBut_Click(object sender, EventArgs e)
+        private void edit_Click(object sender, EventArgs e)
         {
-            Settings setting = new Settings();
-            setting.auto_run = auto_run;
-            setting.rool_up = roll_up_after_run;
-            setting.close_after = close_after_run;
-            setting.path = SettingsPath;
-            setting.users = users;
-            setting.Show();
+            if (comboBox1.SelectedIndex < 0) return;
+            User user = users[comboBox1.SelectedIndex];
+            AccountSettings acs = new AccountSettings(this,user.name);
+            acs.loginBox.Text = user.name;
+            acs.passBox.Text = user.password;
+            acs.Show();
+        }
+
+        public void editUser(string name,string pass,string editName)
+        {
+            foreach(User user in users)
+            {
+                if (user.name.Equals(name))
+                {
+                    user.name = editName;
+                    user.password = pass;
+                    comboBox1.Items[comboBox1.Items.IndexOf(name)] = editName;
+                    editUserAndSave(user, name);
+                    MessageBox.Show("successfully saved!", "SteamAuth");
+                    return;
+                }
+            }
         }
     }
 
