@@ -57,194 +57,93 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="comboBox1.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>13, 13</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panelChiled.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
   </data>
-  <data name="comboBox1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>155, 23</value>
+  <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="panelChiled.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>214, 0</value>
+  </data>
+  <data name="panelChiled.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>502, 417</value>
   </data>
   <assembly alias="System.Private.CoreLib" name="System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" />
-  <data name="comboBox1.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>0</value>
+  <data name="panelChiled.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>16</value>
   </data>
-  <data name="&gt;&gt;comboBox1.Name" xml:space="preserve">
-    <value>comboBox1</value>
+  <data name="&gt;&gt;panelChiled.Name" xml:space="preserve">
+    <value>panelChiled</value>
   </data>
-  <data name="&gt;&gt;comboBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;panelChiled.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panelChiled.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <metadata name="loginBox.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="loginBox.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>111, 174</value>
-  </data>
-  <data name="loginBox.MaxLength" type="System.Int32, System.Private.CoreLib">
-    <value>50</value>
-  </data>
-  <data name="loginBox.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>100, 16</value>
-  </data>
-  <data name="loginBox.TabIndex" type="System.Int32, System.Private.CoreLib">
+  <data name="&gt;&gt;panelChiled.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;loginBox.Name" xml:space="preserve">
-    <value>loginBox</value>
-  </data>
-  <data name="&gt;&gt;loginBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;loginBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;loginBox.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <metadata name="loginPas.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="loginPas.AutoSize" type="System.Boolean, System.Private.CoreLib">
+  <data name="Logo.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
   </data>
-  <data name="loginPas.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>29, 174</value>
+  <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=4.0.2.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+  <data name="Logo.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 20.25pt</value>
   </data>
-  <data name="loginPas.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>76, 15</value>
-  </data>
-  <data name="loginPas.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>2</value>
-  </data>
-  <data name="loginPas.Text" xml:space="preserve">
-    <value>type login -&gt;</value>
-  </data>
-  <data name="&gt;&gt;loginPas.Name" xml:space="preserve">
-    <value>loginPas</value>
-  </data>
-  <data name="&gt;&gt;loginPas.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;loginPas.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;loginPas.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <metadata name="passwordPas.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="passwordPas.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <data name="passwordPas.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>6, 223</value>
-  </data>
-  <data name="passwordPas.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>99, 15</value>
-  </data>
-  <data name="passwordPas.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>3</value>
-  </data>
-  <data name="passwordPas.Text" xml:space="preserve">
-    <value>type password -&gt;</value>
-  </data>
-  <data name="&gt;&gt;passwordPas.Name" xml:space="preserve">
-    <value>passwordPas</value>
-  </data>
-  <data name="&gt;&gt;passwordPas.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;passwordPas.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;passwordPas.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <metadata name="passwordBox.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="passwordBox.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>111, 223</value>
-  </data>
-  <data name="passwordBox.MaxLength" type="System.Int32, System.Private.CoreLib">
-    <value>50</value>
-  </data>
-  <data name="passwordBox.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>100, 16</value>
-  </data>
-  <data name="passwordBox.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;passwordBox.Name" xml:space="preserve">
-    <value>passwordBox</value>
-  </data>
-  <data name="&gt;&gt;passwordBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;passwordBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;passwordBox.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <metadata name="add.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="add.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>13, 267</value>
-  </data>
-  <data name="add.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="add.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>5</value>
-  </data>
-  <data name="add.Text" xml:space="preserve">
-    <value>add</value>
-  </data>
-  <data name="&gt;&gt;add.Name" xml:space="preserve">
-    <value>add</value>
-  </data>
-  <data name="&gt;&gt;add.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;add.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;add.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <metadata name="label1.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="label1.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="Logo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>13, 139</value>
+  <data name="Logo.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>26, 9</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>97, 15</value>
+  <data name="Logo.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>170, 33</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>6</value>
+  <data name="Logo.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>0</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>to add new user :</value>
+  <data name="Logo.Text" xml:space="preserve">
+    <value>Steam Logger</value>
+  </data>
+  <data name="Logo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing.Common">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;Logo.Name" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="&gt;&gt;Logo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Logo.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;Logo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Name" xml:space="preserve">
+    <value>linkLabel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;discord.Name" xml:space="preserve">
+    <value>discord</value>
+  </data>
+  <data name="&gt;&gt;discord.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;discord.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;discord.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -253,224 +152,370 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel2</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <metadata name="load.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="load.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>184, 12</value>
-  </data>
-  <data name="load.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="load.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>7</value>
-  </data>
-  <data name="load.Text" xml:space="preserve">
-    <value>load</value>
-  </data>
-  <data name="&gt;&gt;load.Name" xml:space="preserve">
-    <value>load</value>
-  </data>
-  <data name="&gt;&gt;load.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;load.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;load.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <metadata name="remove.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="remove.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>265, 13</value>
-  </data>
-  <data name="remove.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="remove.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>8</value>
-  </data>
-  <data name="remove.Text" xml:space="preserve">
-    <value>remove</value>
-  </data>
-  <data name="&gt;&gt;remove.Name" xml:space="preserve">
-    <value>remove</value>
-  </data>
-  <data name="&gt;&gt;remove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;remove.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;remove.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="SteamGuardText1.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <data name="SteamGuardText1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SteamGuardText1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>162, 271</value>
-  </data>
-  <data name="SteamGuardText1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>78, 15</value>
-  </data>
-  <data name="SteamGuardText1.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>10</value>
-  </data>
-  <data name="SteamGuardText1.Text" xml:space="preserve">
-    <value>Steam Guard:</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText1.Name" xml:space="preserve">
-    <value>SteamGuardText1</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText1.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <metadata name="SteamGuardText2.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="SteamGuardText2.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=4.0.2.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-  <data name="SteamGuardText2.Font" type="System.Drawing.Font, System.Drawing.Common">
-    <value>Segoe UI Semibold, 9pt, style=Bold</value>
-  </data>
-  <data name="SteamGuardText2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SteamGuardText2.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>246, 271</value>
-  </data>
-  <data name="SteamGuardText2.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>54, 15</value>
-  </data>
-  <data name="SteamGuardText2.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>11</value>
-  </data>
-  <data name="SteamGuardText2.Text" xml:space="preserve">
-    <value>DISABLE</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText2.Name" xml:space="preserve">
-    <value>SteamGuardText2</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;SteamGuardText2.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <metadata name="ActivateSteamGuard.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="ActivateSteamGuard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ActivateSteamGuard.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>306, 267</value>
-  </data>
-  <data name="ActivateSteamGuard.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="ActivateSteamGuard.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>12</value>
-  </data>
-  <data name="ActivateSteamGuard.Text" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="&gt;&gt;ActivateSteamGuard.Name" xml:space="preserve">
-    <value>ActivateSteamGuard</value>
-  </data>
-  <data name="&gt;&gt;ActivateSteamGuard.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ActivateSteamGuard.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ActivateSteamGuard.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="generateGuard.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>265, 41</value>
+  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
+    <value>linkLabel1</value>
   </data>
-  <data name="generateGuard.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>90, 38</value>
+  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="generateGuard.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>13</value>
+  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+    <value>panel2</value>
   </data>
-  <data name="generateGuard.Text" xml:space="preserve">
-    <value>Generate Guard Code</value>
+  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;generateGuard.Name" xml:space="preserve">
-    <value>generateGuard</value>
+  <data name="&gt;&gt;feedback.Name" xml:space="preserve">
+    <value>feedback</value>
   </data>
-  <data name="&gt;&gt;generateGuard.Type" xml:space="preserve">
+  <data name="&gt;&gt;feedback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;feedback.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;feedback.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;generateGuard.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel2</value>
   </data>
-  <data name="&gt;&gt;generateGuard.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.Name" xml:space="preserve">
+    <value>LoadAccountMenu</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>0, 42</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>215, 664</value>
+  </data>
+  <data name="panel2.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>1</value>
   </data>
-  <data name="edit.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>184, 42</value>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
   </data>
-  <data name="edit.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="edit.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>14</value>
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
-  <data name="edit.Text" xml:space="preserve">
-    <value>edit acco...</value>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;edit.Name" xml:space="preserve">
-    <value>edit</value>
+  <data name="linkLabel2.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;edit.Type" xml:space="preserve">
+  <data name="linkLabel2.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 11.25pt</value>
+  </data>
+  <data name="linkLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>12, 310</value>
+  </data>
+  <data name="linkLabel2.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>86, 18</value>
+  </data>
+  <data name="linkLabel2.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>19</value>
+  </data>
+  <data name="linkLabel2.Text" xml:space="preserve">
+    <value>github - click</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Name" xml:space="preserve">
+    <value>linkLabel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="discord.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <data name="discord.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 11pt</value>
+  </data>
+  <data name="discord.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="discord.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>12, 348</value>
+  </data>
+  <data name="discord.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>183, 18</value>
+  </data>
+  <data name="discord.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>18</value>
+  </data>
+  <data name="discord.Text" xml:space="preserve">
+    <value>discord - SweeTHearT#3200</value>
+  </data>
+  <data name="&gt;&gt;discord.Name" xml:space="preserve">
+    <value>discord</value>
+  </data>
+  <data name="&gt;&gt;discord.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;discord.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;discord.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 12pt</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>-209, 214</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>75, 19</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>17</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>feedback:</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="linkLabel1.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <data name="linkLabel1.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 11.25pt</value>
+  </data>
+  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>12, 330</value>
+  </data>
+  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>60, 18</value>
+  </data>
+  <data name="linkLabel1.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>16</value>
+  </data>
+  <data name="linkLabel1.Text" xml:space="preserve">
+    <value>vk - click</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
+    <value>linkLabel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="feedback.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <data name="feedback.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 12pt</value>
+  </data>
+  <data name="feedback.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>12, 291</value>
+  </data>
+  <data name="feedback.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>75, 19</value>
+  </data>
+  <data name="feedback.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>15</value>
+  </data>
+  <data name="feedback.Text" xml:space="preserve">
+    <value>feedback:</value>
+  </data>
+  <data name="&gt;&gt;feedback.Name" xml:space="preserve">
+    <value>feedback</value>
+  </data>
+  <data name="&gt;&gt;feedback.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;feedback.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;feedback.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button1.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 14.25pt</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>0, 37</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>215, 37</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>1</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Add account</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;edit.Parent" xml:space="preserve">
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="LoadAccountMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="LoadAccountMenu.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="LoadAccountMenu.Font" type="System.Drawing.Font, System.Drawing.Common">
+    <value>Corbel, 14.25pt</value>
+  </data>
+  <data name="LoadAccountMenu.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LoadAccountMenu.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>0, 0</value>
+  </data>
+  <data name="LoadAccountMenu.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>215, 37</value>
+  </data>
+  <data name="LoadAccountMenu.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>0</value>
+  </data>
+  <data name="LoadAccountMenu.Text" xml:space="preserve">
+    <value>Load account</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.Name" xml:space="preserve">
+    <value>LoadAccountMenu</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;LoadAccountMenu.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="add.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>0, 0</value>
+  </data>
+  <data name="add.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>75, 23</value>
+  </data>
+  <data name="add.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;add.Name" xml:space="preserve">
+    <value>add</value>
+  </data>
+  <data name="&gt;&gt;add.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>0, 0</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>215, 417</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;edit.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing.Primitives">
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>384, 307</value>
+    <value>716, 417</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>SteamLogger</value>
+  </data>
+  <data name="&gt;&gt;timer1.Name" xml:space="preserve">
+    <value>timer1</value>
+  </data>
+  <data name="&gt;&gt;timer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

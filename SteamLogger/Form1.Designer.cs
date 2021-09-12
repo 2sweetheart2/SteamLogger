@@ -29,151 +29,138 @@ namespace SteamLogger
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.loginBox = new System.Windows.Forms.TextBox();
-            this.loginPas = new System.Windows.Forms.Label();
-            this.passwordPas = new System.Windows.Forms.Label();
-            this.passwordBox = new System.Windows.Forms.TextBox();
-            this.add = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.load = new System.Windows.Forms.Button();
-            this.remove = new System.Windows.Forms.Button();
-            this.SteamGuardText1 = new System.Windows.Forms.Label();
-            this.SteamGuardText2 = new System.Windows.Forms.Label();
-            this.ActivateSteamGuard = new System.Windows.Forms.Button();
-            this.generateGuard = new System.Windows.Forms.Button();
-            this.edit = new System.Windows.Forms.Button();
+            this.panelChiled = new System.Windows.Forms.Panel();
+            this.Logo = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.discord = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.feedback = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.LoadAccountMenu = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // panelChiled
             // 
-            this.comboBox1.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBox1, "comboBox1");
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            resources.ApplyResources(this.panelChiled, "panelChiled");
+            this.panelChiled.Name = "panelChiled";
             // 
-            // loginBox
+            // Logo
             // 
-            this.loginBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.loginBox, "loginBox");
-            this.loginBox.Name = "loginBox";
+            resources.ApplyResources(this.Logo, "Logo");
+            this.Logo.ForeColor = System.Drawing.Color.White;
+            this.Logo.Name = "Logo";
             // 
-            // loginPas
+            // panel2
             // 
-            resources.ApplyResources(this.loginPas, "loginPas");
-            this.loginPas.Name = "loginPas";
+            this.panel2.Controls.Add(this.linkLabel2);
+            this.panel2.Controls.Add(this.discord);
+            this.panel2.Controls.Add(this.linkLabel1);
+            this.panel2.Controls.Add(this.feedback);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.LoadAccountMenu);
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
             // 
-            // passwordPas
+            // linkLabel2
             // 
-            resources.ApplyResources(this.passwordPas, "passwordPas");
-            this.passwordPas.Name = "passwordPas";
+            this.linkLabel2.ActiveLinkColor = System.Drawing.Color.Indigo;
+            resources.ApplyResources(this.linkLabel2, "linkLabel2");
+            this.linkLabel2.LinkColor = System.Drawing.Color.White;
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
-            // passwordBox
+            // discord
             // 
-            this.passwordBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.passwordBox, "passwordBox");
-            this.passwordBox.Name = "passwordBox";
+            resources.ApplyResources(this.discord, "discord");
+            this.discord.ForeColor = System.Drawing.Color.White;
+            this.discord.Name = "discord";
             // 
-            // add
+            // linkLabel1
             // 
-            resources.ApplyResources(this.add, "add");
-            this.add.Name = "add";
-            this.add.UseVisualStyleBackColor = true;
-            this.add.Click += new System.EventHandler(this.add_Click);
+            this.linkLabel1.ActiveLinkColor = System.Drawing.Color.Indigo;
+            resources.ApplyResources(this.linkLabel1, "linkLabel1");
+            this.linkLabel1.LinkColor = System.Drawing.Color.White;
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // label1
+            // feedback
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.feedback, "feedback");
+            this.feedback.ForeColor = System.Drawing.Color.White;
+            this.feedback.Name = "feedback";
             // 
-            // load
+            // button1
             // 
-            resources.ApplyResources(this.load, "load");
-            this.load.Name = "load";
-            this.load.UseVisualStyleBackColor = true;
-            this.load.Click += new System.EventHandler(this.load_Click);
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // remove
+            // LoadAccountMenu
             // 
-            resources.ApplyResources(this.remove, "remove");
-            this.remove.Name = "remove";
-            this.remove.UseVisualStyleBackColor = true;
-            this.remove.Click += new System.EventHandler(this.remove_Click);
+            resources.ApplyResources(this.LoadAccountMenu, "LoadAccountMenu");
+            this.LoadAccountMenu.FlatAppearance.BorderSize = 0;
+            this.LoadAccountMenu.ForeColor = System.Drawing.Color.White;
+            this.LoadAccountMenu.Name = "LoadAccountMenu";
+            this.LoadAccountMenu.UseVisualStyleBackColor = true;
+            this.LoadAccountMenu.Click += new System.EventHandler(this.LoadAccountMenu_Click);
             // 
-            // SteamGuardText1
+            // panel1
             // 
-            resources.ApplyResources(this.SteamGuardText1, "SteamGuardText1");
-            this.SteamGuardText1.Name = "SteamGuardText1";
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.Logo);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
             // 
-            // SteamGuardText2
+            // timer1
             // 
-            resources.ApplyResources(this.SteamGuardText2, "SteamGuardText2");
-            this.SteamGuardText2.ForeColor = System.Drawing.Color.Red;
-            this.SteamGuardText2.Name = "SteamGuardText2";
-            // 
-            // ActivateSteamGuard
-            // 
-            resources.ApplyResources(this.ActivateSteamGuard, "ActivateSteamGuard");
-            this.ActivateSteamGuard.Name = "ActivateSteamGuard";
-            this.ActivateSteamGuard.UseVisualStyleBackColor = true;
-            this.ActivateSteamGuard.Click += new System.EventHandler(this.ActivateSteamGuard_Click);
-            // 
-            // generateGuard
-            // 
-            resources.ApplyResources(this.generateGuard, "generateGuard");
-            this.generateGuard.Name = "generateGuard";
-            this.generateGuard.UseVisualStyleBackColor = true;
-            this.generateGuard.Click += new System.EventHandler(this.generateGuard_Click);
-            // 
-            // edit
-            // 
-            resources.ApplyResources(this.edit, "edit");
-            this.edit.Name = "edit";
-            this.edit.UseVisualStyleBackColor = true;
-            this.edit.Click += new System.EventHandler(this.edit_Click);
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.edit);
-            this.Controls.Add(this.generateGuard);
-            this.Controls.Add(this.ActivateSteamGuard);
-            this.Controls.Add(this.SteamGuardText2);
-            this.Controls.Add(this.SteamGuardText1);
-            this.Controls.Add(this.remove);
-            this.Controls.Add(this.load);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.add);
-            this.Controls.Add(this.passwordBox);
-            this.Controls.Add(this.passwordPas);
-            this.Controls.Add(this.loginPas);
-            this.Controls.Add(this.loginBox);
-            this.Controls.Add(this.comboBox1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelChiled);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox loginBox;
-        private System.Windows.Forms.Label loginPas;
-        private System.Windows.Forms.Label passwordPas;
-        private System.Windows.Forms.TextBox passwordBox;
-        private System.Windows.Forms.Button add;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button load;
-        private System.Windows.Forms.Button remove;
-        private System.Windows.Forms.Label SteamGuardText1;
-        private System.Windows.Forms.Label SteamGuardText2;
-        private System.Windows.Forms.Button ActivateSteamGuard;
-        private System.Windows.Forms.Button generateGuard;
-        private System.Windows.Forms.Button edit;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label Logo;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button LoadAccountMenu;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelChiled;
+        private System.Windows.Forms.Label discord;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label feedback;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
 

@@ -53,79 +53,28 @@ namespace SteamLogger
                 MessageBox.Show(String.Format("Start account with login={0}",args[1]), "SteamAuth");
                 
             }
+            selectAccount = new SelectAccount(this);
+            
         }
 
 
         public List<User> users = new List<User>();
-        public void load_Click(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedIndex >= 0)
-            {
-                User user = users[comboBox1.SelectedIndex];
-                LoginAccount(user.name, user.password, user.link);
-            }
-            else MessageBox.Show("select account before load him", "SteamAuth");
 
+        public void removeUser(int index)
+        {
+            users.RemoveAt(index);
+            File.WriteAllText(UsersPath, ListToJsonString(users));
         }
 
-        private void remove_Click(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedIndex >= 0)
-            {
-                int index = comboBox1.SelectedIndex;
-                comboBox1.Items.RemoveAt(index);
-                comboBox1.Text = "";
-                users.RemoveAt(index);
-                File.WriteAllText(UsersPath, ListToJsonString(users));
-                
-            }
-            else MessageBox.Show("select account before delete him", "SteamAuth");
-        }
 
-        private void add_Click(object sender, EventArgs e)
+        public void addUser(string login, string passwrod)
         {
-            if (loginBox.Text.Length > 0 && passwordBox.Text.Length > 0)
-            {
-                User user = new User() { name = loginBox.Text, password = passwordBox.Text, link = "" };
-                comboBox1.Items.Add(loginBox.Text);
-                AddUserToFile(user);
-                users.Add(user);
-                loginBox.Text = "";
-                passwordBox.Text = "";
-            }
+            User user = new User() { name = login, password = passwrod, link = "" };
+            AddUserToFile(user);
+            users.Add(user);
         }
-/*        bool auto_run = false;
-        bool roll_up_after_run = false;
-        bool close_after_run = false;
-        int auto_start_up_index;
-        private void getSettings()
-        {
-            if (!File.Exists(SettingsPath))
-            {
-                StreamWriter sw = File.CreateText(UsersPath);
-                sw.Flush();
-                sw.Dispose();
-                List<string> lines = new List<string>() {"auto_run=false", "roll_up_after_run=false","close_after_run=false","auto_start_up_index=-1"};
-                File.WriteAllLines(SettingsPath, lines);
-                auto_run = false;
-                roll_up_after_run = false;
-                close_after_run = false;
-                auto_start_up_index = -1;
-            }
-            else
-            {
-                string[] lines = File.ReadAllLines(SettingsPath);
-                auto_run = bool.Parse(lines[0].Split("=")[1]);
-                if (!auto_run)
-                {
-                    roll_up_after_run = bool.Parse(lines[1].Split("=")[1]);
-                    close_after_run = bool.Parse(lines[2].Split("=")[1]);
-                    Int32.TryParse(lines[3].Split("=")[1],out auto_start_up_index);
-                }
-            }
-        }*/
         private void MainForm_Load(object sender, EventArgs e)
-        {  
+        {
             if (!Directory.Exists(MainPath)) Directory.CreateDirectory(MainPath);
 /*            getSettings();
 
@@ -173,25 +122,11 @@ namespace SteamLogger
                     }
                 }
             }
-/*            loginBox.Text = ""+auto_start_up_index;
-            if(users.Count-1 >= auto_start_up_index) comboBox1.SelectedIndex = auto_start_up_index;
-            if (auto_run && auto_start_up_index >= 0)
-            {
-                try
-                {
-                    Object a = null;
-                    load_Click(a, EventArgs.Empty);
-                }
-                catch
-                {
-                    MessageBox.Show("auto stat up account failed");
-                }
-            }*/
         }
 
         private void ActivateSteamGuard_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex >= 0)
+/*            if (comboBox1.SelectedIndex >= 0)
             {
                 User user = users[comboBox1.SelectedIndex];
                 if (user.link.Length <= 0)
@@ -201,8 +136,9 @@ namespace SteamLogger
                 }
                 else MessageBox.Show("Steam Guard active for this account", "SteamAuth");
             }
-            else MessageBox.Show("Select aacount before activate Steam Guard");
+       */     MessageBox.Show("Select aacount before activate Steam Guard");
         }
+
 
         public static Process WaitForSteamProcess(IntPtr hwnd)
         {
@@ -232,7 +168,7 @@ namespace SteamLogger
             return process;
         }
 
-        private void LoginAccount(string login, string pass, string steamGuadLink)
+        public async void LoginAccount(string login, string pass, string steamGuadLink)
         {
             foreach (var process in Process.GetProcessesByName("steam"))
             {
@@ -252,7 +188,7 @@ namespace SteamLogger
             }
 
         }
-        async void PutSteamGuardCode(SteamGuardAccount steamGuard,bool wait)
+        private async void PutSteamGuardCode(SteamGuardAccount steamGuard,bool wait)
         {
             IntPtr steamGuardWindow = GetSteamGuardWindow();
             while (steamGuardWindow.Equals(IntPtr.Zero))
@@ -271,31 +207,9 @@ namespace SteamLogger
             
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedIndex >= 0)
-            {
-                User user = users[comboBox1.SelectedIndex];
-                if (user.link.Length > 0)
-                {
-                    SteamGuardText2.ForeColor = Color.Green;
-                    SteamGuardText2.Text = "ENABLE";
-                }
-                else
-                {
-                    SteamGuardText2.ForeColor = Color.Red;
-                    SteamGuardText2.Text = "DISABLE";
-                }
-            }
-            else SteamGuardText2.Text = "";
-        }
 
-        private void generateGuard_Click(object sender, EventArgs e)
+        public void generateGuardCode(User user)
         {
-
-            if (comboBox1.SelectedIndex >= 0)
-            {
-                User user = users[comboBox1.SelectedIndex];
                 if (user.link.Length > 0)
                 {
                     var steamGuard = new SteamGuardAccount();
@@ -304,8 +218,6 @@ namespace SteamLogger
                     MessageBox.Show(steamGuard.GenerateSteamGuardCode(), "Steam Guard code");
                 }
                 else MessageBox.Show("activate Guard Code before generate him");
-            }
-            else MessageBox.Show("Select account before generate Steam Guard code");
         }
 
         const uint WM_KEYDOWN = 0x0100;
@@ -421,11 +333,11 @@ namespace SteamLogger
                 {
                     user.name = name;
                     user.password = pass;
-                    comboBox1.Items[comboBox1.Items.IndexOf(oldname)] = name;
                     users = usersList;
                     continue;
                 }
             }
+            selectAccount.UpdateUsers();
             File.WriteAllText(UsersPath, ListToJsonString(usersList));
         }
         public void OpenFileAndRead()
@@ -433,22 +345,101 @@ namespace SteamLogger
             if (File.ReadAllText(UsersPath).Length > 0)
             {
                 users = StringToListUsers(File.ReadAllLines(UsersPath)[0]);
-                foreach (User user in users)
+            }
+        }
+
+
+        public void EditUser2(User user)
+        {
+            bool hasSteamGuard = false;
+            if (user.link.Length > 0) hasSteamGuard = true;
+            editAccount eda = new editAccount(this, user.name, user.password,hasSteamGuard);
+            eda.loginBox.Text = user.name;
+            eda.passBox.Text = user.password;
+            eda.Show();
+        }
+        SelectAccount selectAccount;
+        private void LoadAccountMenu_Click(object sender, EventArgs e)
+        {
+            selectAccount = new SelectAccount(this);
+            OpenChildForm(selectAccount);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new AddAccount(this));
+        }
+        private Form activeForm = null;
+        private void OpenChildForm(Form ChiledForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            activeForm = ChiledForm;
+            ChiledForm.TopLevel = false;
+            ChiledForm.FormBorderStyle = FormBorderStyle.None;
+            ChiledForm.Dock = DockStyle.Fill;
+            panelChiled.Controls.Add(ChiledForm);
+            panelChiled.Tag = ChiledForm;
+            ChiledForm.BringToFront();
+            ChiledForm.Show();
+        }
+
+
+        public List<User> getUsers()
+        {
+            return users;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {"https://vk.com/id532148734"}") { CreateNoWindow = true });
+        }
+
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        bool reverse = false;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!reverse) plus();
+            else minus();
+            linkLabel1.LinkColor = Color.FromArgb(r, g, b);
+            linkLabel2.LinkColor = Color.FromArgb(g, b, r);
+        }
+
+        public void plus()
+        {
+            
+            if (r != 255) r++;
+            else
+            {
+                if (g != 255) g++;
+                else
                 {
-                    comboBox1.Items.Add(user.name);
+                    if (b != 255) b++;
+                    else reverse = true;
                 }
 
             }
         }
-
-        private void edit_Click(object sender, EventArgs e)
+        public void minus()
         {
-            if (comboBox1.SelectedIndex < 0) return;
-            User user = users[comboBox1.SelectedIndex];
-            editAccount eda = new editAccount(this, user.name, user.password);
-            eda.loginBox.Text = user.name;
-            eda.passBox.Text = user.password;
-            eda.Show();
+            if (r != 0) r--;
+            else
+            {
+                if (g != 0) g--;
+                else
+                {
+                    if (b != 0) b--;
+                    else reverse = false;
+                }
+            }
+           
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("cmd", $"/c start {"https://github.com/2sweetheart2"}") { CreateNoWindow = true });
         }
     }
 

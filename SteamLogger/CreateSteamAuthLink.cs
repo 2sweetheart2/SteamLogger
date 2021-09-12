@@ -111,7 +111,8 @@ namespace SteamLogger
         {
             if (AllocConsole())
             {
-                while (true)
+                bool end = false;
+                while (!end)
                 {
                     System.Console.WriteLine("login with param: " + login1 + ", " + pass);
                     string username = login1;
@@ -185,6 +186,7 @@ namespace SteamLogger
                     {
                         System.Console.WriteLine("Unable to finalize authenticator: " + linkResult);
                     }
+                    end = true;
                     this.Close();
                 }
             }

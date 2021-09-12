@@ -13,12 +13,14 @@ namespace SteamLogger
         MainForm main;
         string oldname;
         string oldpass;
-        public editAccount(MainForm main,string oldname,string oldpass)
+        bool steamGuard;
+        public editAccount(MainForm main,string oldname,string oldpass, Boolean hasSteamGuard)
         {
             InitializeComponent();
             this.main = main;
             this.oldname = oldname;
             this.oldpass = oldpass;
+            steamGuard = hasSteamGuard;
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -34,5 +36,7 @@ namespace SteamLogger
             MessageBox.Show("successfully saved!", "SteamAuth");
             Close();
         }
+
+
     }
 }
