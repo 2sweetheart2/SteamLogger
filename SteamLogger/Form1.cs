@@ -122,23 +122,14 @@ namespace SteamLogger
                     }
                 }
             }
+            leftBorderPanel = new Panel();
+            leftBorderPanel.Size = new Size(5, 37);
+            PanelControls.Controls.Add(leftBorderPanel);
+            LoadBtnLeftBorder.BackColor = Color.FromArgb(0, 66, 49, 137);
+            AddBtnLeftBorder.BackColor = Color.FromArgb(0, 66, 49, 137);
         }
 
-        private void ActivateSteamGuard_Click(object sender, EventArgs e)
-        {
-/*            if (comboBox1.SelectedIndex >= 0)
-            {
-                User user = users[comboBox1.SelectedIndex];
-                if (user.link.Length <= 0)
-                {
-                    CreateSteamAuthLink newfrm = new CreateSteamAuthLink(user.name, user.password);
-                    newfrm.Show();
-                }
-                else MessageBox.Show("Steam Guard active for this account", "SteamAuth");
-            }
-       */     MessageBox.Show("Select aacount before activate Steam Guard");
-        }
-
+        private Panel leftBorderPanel;
 
         public static Process WaitForSteamProcess(IntPtr hwnd)
         {
@@ -182,7 +173,7 @@ namespace SteamLogger
             {
                 SteamGuardAccount steamGuard = new SteamGuardAccount();
                 steamGuard.SharedSecret = steamGuadLink;
-                var t = Task.Run(() => PutSteamGuardCode(steamGuard,true));
+                var t =Task.Run(()=> PutSteamGuardCode(steamGuard,true));
                 t.Wait();
                 if (closeAfterEnter) Close();
             }
@@ -190,21 +181,24 @@ namespace SteamLogger
         }
         private async void PutSteamGuardCode(SteamGuardAccount steamGuard,bool wait)
         {
-            IntPtr steamGuardWindow = GetSteamGuardWindow();
-            while (steamGuardWindow.Equals(IntPtr.Zero))
+            await Task.Run(() =>
             {
-                Thread.Sleep(100);
-                steamGuardWindow = GetSteamGuardWindow();
-            }
-            Process steamGuardProcess = WaitForSteamProcess(steamGuardWindow);
-            steamGuardProcess.WaitForInputIdle();
-            if(wait) Thread.Sleep(2000);
-            foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
-            {
-                SendKey(steamGuardWindow, c);
-            }
-            SendEnter(steamGuardWindow);
-            
+                IntPtr steamGuardWindow = GetSteamGuardWindow();
+                while (steamGuardWindow.Equals(IntPtr.Zero))
+                {
+                    Thread.Sleep(100);
+                    steamGuardWindow = GetSteamGuardWindow();
+                }
+                Process steamGuardProcess = WaitForSteamProcess(steamGuardWindow);
+                steamGuardProcess.WaitForInputIdle();
+                if (wait) Thread.Sleep(2000);
+                foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
+                {
+                    SendKey(steamGuardWindow, c);
+                }
+                SendEnter(steamGuardWindow);
+            });
+
         }
 
 
@@ -359,14 +353,24 @@ namespace SteamLogger
             eda.Show();
         }
         SelectAccount selectAccount;
+        Panel saveStatePanel = new Panel();
+        Color mainColor = Color.FromArgb(0, 66, 49, 137);
         private void LoadAccountMenu_Click(object sender, EventArgs e)
         {
+            if (saveStatePanel.Name.Equals(AddBtnLeftBorder.Name)) AddBtnLeftBorder.BackColor = Color.FromArgb(0, mainColor);
+
+            saveStatePanel = LoadBtnLeftBorder;
+            activateStateForButton((Button)sender, LoadBtnLeftBorder);
             selectAccount = new SelectAccount(this);
             OpenChildForm(selectAccount);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (saveStatePanel.Name.Equals(LoadBtnLeftBorder.Name)) LoadBtnLeftBorder.BackColor = Color.FromArgb(0, mainColor);
+
+            saveStatePanel = AddBtnLeftBorder;
+            activateStateForButton((Button)sender, AddBtnLeftBorder);
             OpenChildForm(new AddAccount(this));
         }
         private Form activeForm = null;
@@ -396,8 +400,8 @@ namespace SteamLogger
         }
 
         int r = 0;
-        int g = 0;
-        int b = 0;
+        int g = 255;
+        int b = 100;
         bool reverse = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -440,6 +444,115 @@ namespace SteamLogger
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("cmd", $"/c start {"https://github.com/2sweetheart2"}") { CreateNoWindow = true });
+        }
+        private void activateStateForButton(Button button, Panel panel)
+        {
+            panel.BackColor = Color.DarkSlateBlue;
+            panel.Location = new Point(0, button.Location.Y);
+            panel.Visible = true;
+            panel.BringToFront();
+        }
+        private void DisableStateForButton(Panel panel)
+        {
+            panel.Visible = false;
+        }
+        public bool onLoadBtn = false;
+        public bool onAddBtn = false;
+        private async void ChangedStateLoadBorder(Panel panel,bool minus)
+        {
+            if(saveStatePanel!=null)
+            {
+                if (saveStatePanel.Name.Equals(panel.Name)){
+                    panel.BackColor = Color.FromArgb(255, mainColor);
+                    return;
+                }
+            }
+            await Task.Run(() =>
+            {
+                int a = 0;
+                if (minus) a = panel.BackColor.A;
+                if (!minus)
+                {
+                    while (a < 255)
+                    {
+                        if (!onLoadBtn) break;
+                        panel.BackColor = Color.FromArgb(a,mainColor);
+                        a += 15;
+                        Thread.Sleep(1);
+                    }
+                }
+                else
+                {
+                    while (a > 0)
+                    {
+                        if (onLoadBtn) break;
+                        panel.BackColor = Color.FromArgb(a, mainColor);
+                        a -= 15;
+                        Thread.Sleep(1);
+                    }
+                }
+            });
+        }
+
+        private async void ChangedStateAddBorder(Panel panel, bool minus)
+        {
+            if (saveStatePanel != null)
+            {
+                if (saveStatePanel.Name.Equals(panel.Name))
+                {
+                    panel.BackColor = Color.FromArgb(255, mainColor);
+                    return;
+                }
+            }
+            await Task.Run(() =>
+            {
+                int a = 0;
+                if (minus) a = panel.BackColor.A;
+                if (!minus)
+                {
+                    while (a < 255)
+                    {
+                        if (!onAddBtn) break;
+                        panel.BackColor = Color.FromArgb(a, mainColor);
+                        a += 15;
+                        Thread.Sleep(1);
+                    }
+                }
+                else
+                {
+                    while (a > 0)
+                    {
+                        if (onAddBtn) break;
+                        panel.BackColor = Color.FromArgb(a, mainColor);
+                        a -= 15;
+                        Thread.Sleep(1);
+                    }
+                }
+            });
+        }
+
+        private void LoadAccountMenu_MouseEnter(object sender, EventArgs e)
+        {
+            onLoadBtn = true;
+            ChangedStateLoadBorder(LoadBtnLeftBorder,false) ;
+        }
+
+        private void LoadAccountMenu_MouseLeave(object sender, EventArgs e)
+        {
+            onLoadBtn = false;
+            ChangedStateLoadBorder(LoadBtnLeftBorder, true);
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            onAddBtn = true;
+            ChangedStateAddBorder(AddBtnLeftBorder, false);
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            onAddBtn = false;
+            ChangedStateAddBorder(AddBtnLeftBorder, true);
         }
     }
 

@@ -27,5 +27,9 @@ namespace SteamLogger
             passBox.Text = "";
         }
 
+        private void AddAccount_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

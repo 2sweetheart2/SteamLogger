@@ -70,8 +70,8 @@ namespace SteamLogger
         {
             MainForm.User user = getUser();
             if (user == null) return;
-            if (user.link.Length <= 0) label1.Text = "Steam Guard: DISABLE";
-            else label1.Text = "Steam Guard: ENABLE";
+            if (user.link.Length <= 0) label1.Text = "Steam Guard: DISABLED";
+            else label1.Text = "Steam Guard: ENABLED";
         }
 
         private void button2_Click(object sender, EventArgs e)

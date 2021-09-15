@@ -33,7 +33,9 @@ namespace SteamLogger
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panelChiled = new System.Windows.Forms.Panel();
             this.Logo = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.PanelControls = new System.Windows.Forms.Panel();
+            this.AddBtnLeftBorder = new System.Windows.Forms.Panel();
+            this.LoadBtnLeftBorder = new System.Windows.Forms.Panel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.discord = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -42,7 +44,8 @@ namespace SteamLogger
             this.LoadAccountMenu = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel2.SuspendLayout();
+            this.customButton1 = new SteamLogger.components.CustomButton();
+            this.PanelControls.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,16 +60,30 @@ namespace SteamLogger
             this.Logo.ForeColor = System.Drawing.Color.White;
             this.Logo.Name = "Logo";
             // 
-            // panel2
+            // PanelControls
             // 
-            this.panel2.Controls.Add(this.linkLabel2);
-            this.panel2.Controls.Add(this.discord);
-            this.panel2.Controls.Add(this.linkLabel1);
-            this.panel2.Controls.Add(this.feedback);
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.LoadAccountMenu);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
+            this.PanelControls.Controls.Add(this.AddBtnLeftBorder);
+            this.PanelControls.Controls.Add(this.LoadBtnLeftBorder);
+            this.PanelControls.Controls.Add(this.linkLabel2);
+            this.PanelControls.Controls.Add(this.discord);
+            this.PanelControls.Controls.Add(this.linkLabel1);
+            this.PanelControls.Controls.Add(this.feedback);
+            this.PanelControls.Controls.Add(this.button1);
+            this.PanelControls.Controls.Add(this.LoadAccountMenu);
+            resources.ApplyResources(this.PanelControls, "PanelControls");
+            this.PanelControls.Name = "PanelControls";
+            // 
+            // AddBtnLeftBorder
+            // 
+            this.AddBtnLeftBorder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(49)))), ((int)(((byte)(137)))));
+            resources.ApplyResources(this.AddBtnLeftBorder, "AddBtnLeftBorder");
+            this.AddBtnLeftBorder.Name = "AddBtnLeftBorder";
+            // 
+            // LoadBtnLeftBorder
+            // 
+            this.LoadBtnLeftBorder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(49)))), ((int)(((byte)(137)))));
+            resources.ApplyResources(this.LoadBtnLeftBorder, "LoadBtnLeftBorder");
+            this.LoadBtnLeftBorder.Name = "LoadBtnLeftBorder";
             // 
             // linkLabel2
             // 
@@ -106,6 +123,8 @@ namespace SteamLogger
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
+            this.button1.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
             // 
             // LoadAccountMenu
             // 
@@ -115,11 +134,13 @@ namespace SteamLogger
             this.LoadAccountMenu.Name = "LoadAccountMenu";
             this.LoadAccountMenu.UseVisualStyleBackColor = true;
             this.LoadAccountMenu.Click += new System.EventHandler(this.LoadAccountMenu_Click);
+            this.LoadAccountMenu.MouseEnter += new System.EventHandler(this.LoadAccountMenu_MouseEnter);
+            this.LoadAccountMenu.MouseLeave += new System.EventHandler(this.LoadAccountMenu_MouseLeave);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
-            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.PanelControls);
             this.panel1.Controls.Add(this.Logo);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
@@ -129,6 +150,12 @@ namespace SteamLogger
             this.timer1.Enabled = true;
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // customButton1
+            // 
+            this.customButton1.Color = System.Drawing.Color.Empty;
+            resources.ApplyResources(this.customButton1, "customButton1");
+            this.customButton1.Name = "customButton1";
             // 
             // MainForm
             // 
@@ -140,8 +167,8 @@ namespace SteamLogger
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.PanelControls.ResumeLayout(false);
+            this.PanelControls.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -149,9 +176,8 @@ namespace SteamLogger
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label Logo;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel PanelControls;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button LoadAccountMenu;
         private System.Windows.Forms.Panel panel1;
@@ -161,6 +187,9 @@ namespace SteamLogger
         private System.Windows.Forms.Label feedback;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private components.CustomButton customButton1;
+        private System.Windows.Forms.Panel LoadBtnLeftBorder;
+        private System.Windows.Forms.Panel AddBtnLeftBorder;
     }
 }
 

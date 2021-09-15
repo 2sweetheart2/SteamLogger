@@ -108,6 +108,7 @@ namespace SteamLogger
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddAccount";
             this.Text = "AddAccount";
+            this.Load += new System.EventHandler(this.AddAccount_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

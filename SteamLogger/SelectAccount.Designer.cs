@@ -30,13 +30,13 @@ namespace SteamLogger
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.ListBox = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,20 @@ namespace SteamLogger
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(486, 121);
             this.panel1.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(260, 7);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(142, 58);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "activate Steam Guard";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
@@ -118,7 +132,7 @@ namespace SteamLogger
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(75, 23);
             this.loadButton.TabIndex = 0;
-            this.loadButton.Text = "Load";
+            this.loadButton.Text = "load";
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
@@ -137,20 +151,6 @@ namespace SteamLogger
             this.ListBox.Size = new System.Drawing.Size(486, 299);
             this.ListBox.TabIndex = 2;
             this.ListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
-            // 
-            // button2
-            // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(260, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 58);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "activate Steam Guard";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SelectAccount
             // 
