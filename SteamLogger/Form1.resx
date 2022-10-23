@@ -58,15 +58,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="panelChiled.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
+  <data name="panelChiled.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="panelChiled.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>271, 0</value>
+    <value>214, 0</value>
   </data>
   <data name="panelChiled.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>445, 417</value>
+    <value>506, 417</value>
   </data>
   <assembly alias="System.Private.CoreLib" name="System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" />
   <data name="panelChiled.TabIndex" type="System.Int32, System.Private.CoreLib">
@@ -406,21 +406,6 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="customButton1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>0, 0</value>
-  </data>
-  <data name="customButton1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>0, 0</value>
-  </data>
-  <data name="customButton1.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;customButton1.Name" xml:space="preserve">
-    <value>customButton1</value>
-  </data>
-  <data name="&gt;&gt;customButton1.Type" xml:space="preserve">
-    <value>SteamLogger.components.CustomButton, SteamLogger, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>True</value>
   </metadata>
@@ -428,7 +413,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>716, 417</value>
+    <value>719, 417</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

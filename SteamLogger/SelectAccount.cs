@@ -59,6 +59,8 @@ namespace SteamLogger
             main.EditUser2(user);
         }
 
+        
+
         private void button1_Click(object sender, EventArgs e)
         {
             MainForm.User user = getUser();
@@ -91,6 +93,13 @@ namespace SteamLogger
             {
                 ListBox.Items.Add(user.name);
             }
+        }
+
+        private void get_store_Click(object sender, EventArgs e)
+        {
+            MainForm.User user = getUser();
+            if (user == null) return;
+            main.confirm_store(user);
         }
     }
 }

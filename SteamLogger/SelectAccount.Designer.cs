@@ -37,12 +37,14 @@ namespace SteamLogger
             this.editButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.ListBox = new System.Windows.Forms.ListBox();
+            this.get_store = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.panel1.Controls.Add(this.get_store);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button1);
@@ -152,6 +154,20 @@ namespace SteamLogger
             this.ListBox.TabIndex = 2;
             this.ListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
             // 
+            // get_store
+            // 
+            this.get_store.FlatAppearance.BorderSize = 0;
+            this.get_store.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.get_store.Font = new System.Drawing.Font("Corbel", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.get_store.ForeColor = System.Drawing.Color.White;
+            this.get_store.Location = new System.Drawing.Point(397, 20);
+            this.get_store.Name = "get_store";
+            this.get_store.Size = new System.Drawing.Size(77, 33);
+            this.get_store.TabIndex = 5;
+            this.get_store.Text = "trades";
+            this.get_store.UseVisualStyleBackColor = true;
+            this.get_store.Click += new System.EventHandler(this.get_store_Click);
+            // 
             // SelectAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -178,5 +194,6 @@ namespace SteamLogger
         private System.Windows.Forms.ListBox ListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
+        public System.Windows.Forms.Button get_store;
     }
 }

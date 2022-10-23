@@ -76,34 +76,6 @@ namespace SteamLogger
         private void MainForm_Load(object sender, EventArgs e)
         {
             if (!Directory.Exists(MainPath)) Directory.CreateDirectory(MainPath);
-/*            getSettings();
-
-            if (auto_run)
-            {
-                string b = Environment.CurrentDirectory+@"\SteamLogger.exe";
-                string a = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\", "SteamLogger", "null");
-                RegistryKey reg;
-                reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
-                if (!a.Equals("null"))
-                {
-                    reg.DeleteValue("SteamLogger");
-
-                }
-                reg.SetValue("SteamLogger", b);
-                reg.Close();
-
-            }
-            else
-            {
-                string a = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\", "SteamLogger", "null");
-                if (!a.Equals("null"))
-                {
-                    RegistryKey reg;
-                    reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
-                    reg.DeleteValue("SteamLogger");
-                    reg.Close();
-                }
-            }*/  
             if (!Directory.Exists(SecretstPath)) Directory.CreateDirectory(SecretstPath);
             if (!File.Exists(UsersPath))
             {
@@ -127,6 +99,11 @@ namespace SteamLogger
             PanelControls.Controls.Add(leftBorderPanel);
             LoadBtnLeftBorder.BackColor = Color.FromArgb(0, 66, 49, 137);
             AddBtnLeftBorder.BackColor = Color.FromArgb(0, 66, 49, 137);
+        }
+
+        internal void confirm_store(User user)
+        {
+            throw new NotImplementedException();
         }
 
         private Panel leftBorderPanel;
@@ -189,19 +166,33 @@ namespace SteamLogger
                     Thread.Sleep(100);
                     steamGuardWindow = GetSteamGuardWindow();
                 }
+
                 Process steamGuardProcess = WaitForSteamProcess(steamGuardWindow);
                 steamGuardProcess.WaitForInputIdle();
-                if (wait) Thread.Sleep(2000);
-                foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
+                
+
+                DialogResult vibor2 = MessageBox.Show("Вставить код SteamGuard?\nInsert SteamGuard code?", "SteamAuth", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (vibor2 == DialogResult.Yes)
                 {
-                    SendKey(steamGuardWindow, c);
+                    RECT rt = new RECT();
+                    GetWindowRect(steamGuardWindow,out rt);
+                    SetCursorPos(rt.Left + 45, rt.Top + 45);
+                    mouse_event(0x00000002, rt.Left + 45, rt.Top + 45,0,0);
+                    mouse_event(0x00000004, rt.Left + 45, rt.Top + 45, 0, 0);
+                    SendTab(steamGuardWindow);
+                    foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
+                    {
+                        SendKey(steamGuardWindow, c);
+                    }
+                    SendEnter(steamGuardWindow);
                 }
-                SendEnter(steamGuardWindow);
+
             });
 
         }
 
-
+        [DllImport("user32.dll")]
+        private static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
         public void generateGuardCode(User user)
         {
                 if (user.link.Length > 0)
@@ -244,9 +235,7 @@ namespace SteamLogger
             GetWindowText(hWnd, windowTextSb, windowTextSb.Capacity + 1);
             string windowText = windowTextSb.ToString();
             if (className.Equals("vguiPopupWindow") &&
-                (windowText.StartsWith("Steam Guard") ||
-                windowText.StartsWith("Steam 令牌") ||
-                windowText.StartsWith("Steam ガード")))
+                (windowText.Contains("Steam") && !windowText.Equals("Steam Client WebHelper")))
             {
                 GCHandle gcChildhandlesList = GCHandle.FromIntPtr(lParam);
 
@@ -266,13 +255,13 @@ namespace SteamLogger
             try
             {
                 EnumWindowProc validProc = new EnumWindowProc(EnumWindow);
+               
                 EnumWindows(validProc, pointerValidHandlesList);
             }
             finally
             {
                 gcValidHandlesList.Free();
             }
-
             if (validHandles.Count > 0)
             {
                 return validHandles[0];
@@ -280,6 +269,37 @@ namespace SteamLogger
             return IntPtr.Zero;
         }
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr SetFocus(IntPtr hWnd);
+
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;        // x position of upper-left corner
+            public int Top;         // y position of upper-left corner
+            public int Right;       // x position of lower-right corner
+            public int Bottom;      // y position of lower-right corner
+        }
+        private static void SendTab(IntPtr hwnd)
+        {
+
+            Thread.Sleep(1000);
+            SetFocus(hwnd);
+            SetForegroundWindow(hwnd);
+            Thread.Sleep(500);
+            SendKeys.SendWait("{TAB}");
+            Thread.Sleep(500);
+            SendMessage(hwnd, (uint)System.Windows.Forms.Keys.Tab, 0, IntPtr.Zero);
+
+        }
         private static void SendKey(IntPtr hwnd, char c)
         {
             SetForegroundWindow(hwnd);
@@ -333,6 +353,17 @@ namespace SteamLogger
             }
             selectAccount.UpdateUsers();
             File.WriteAllText(UsersPath, ListToJsonString(usersList));
+        }
+
+        public void ConfirmStore(User user)
+        {
+            var steamGuard = new SteamGuardAccount();
+            steamGuard.SharedSecret = user.link;
+            Confirmation[] conf = steamGuard.FetchConfirmations();
+            steamGuard.AcceptMultipleConfirmations(conf);
+            
+            MessageBox.Show("All confirmations allow", "Steam Guard code");
+
         }
         public void OpenFileAndRead()
         {
@@ -554,6 +585,7 @@ namespace SteamLogger
             onAddBtn = false;
             ChangedStateAddBorder(AddBtnLeftBorder, true);
         }
+
     }
 
 

@@ -44,7 +44,6 @@ namespace SteamLogger
             this.LoadAccountMenu = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.customButton1 = new SteamLogger.components.CustomButton();
             this.PanelControls.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -151,12 +150,6 @@ namespace SteamLogger
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // customButton1
-            // 
-            this.customButton1.Color = System.Drawing.Color.Empty;
-            resources.ApplyResources(this.customButton1, "customButton1");
-            this.customButton1.Name = "customButton1";
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -187,7 +180,6 @@ namespace SteamLogger
         private System.Windows.Forms.Label feedback;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private components.CustomButton customButton1;
         private System.Windows.Forms.Panel LoadBtnLeftBorder;
         private System.Windows.Forms.Panel AddBtnLeftBorder;
     }
