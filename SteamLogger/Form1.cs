@@ -175,6 +175,7 @@ namespace SteamLogger
                 if (vibor2 == DialogResult.Yes)
                 {
                     RECT rt = new RECT();
+                    SetForegroundWindow(steamGuardWindow);
                     GetWindowRect(steamGuardWindow,out rt);
                     SetCursorPos(rt.Left + 45, rt.Top + 45);
                     mouse_event(0x00000002, rt.Left + 45, rt.Top + 45,0,0);
@@ -291,12 +292,11 @@ namespace SteamLogger
         private static void SendTab(IntPtr hwnd)
         {
 
-            Thread.Sleep(1000);
             SetFocus(hwnd);
             SetForegroundWindow(hwnd);
-            Thread.Sleep(500);
+            Thread.Sleep(50);
             SendKeys.SendWait("{TAB}");
-            Thread.Sleep(500);
+            Thread.Sleep(50);
             SendMessage(hwnd, (uint)System.Windows.Forms.Keys.Tab, 0, IntPtr.Zero);
 
         }
