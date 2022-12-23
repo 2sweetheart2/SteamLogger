@@ -144,7 +144,7 @@ namespace SteamLogger
             }
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam", "SteamExe", "null");
-            startInfo.Arguments = " -login \"" + login + "\" \"" + pass + "\"";
+            startInfo.Arguments = " -login \"" + login + "\" \"" + pass + "\" -noreactlogin";
             Process.Start(startInfo);
             if (steamGuadLink.Length > 0)
             {
@@ -171,22 +171,12 @@ namespace SteamLogger
                 steamGuardProcess.WaitForInputIdle();
                 
 
-                DialogResult vibor2 = MessageBox.Show("Вставить код SteamGuard?\nInsert SteamGuard code?", "SteamAuth", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (vibor2 == DialogResult.Yes)
-                {
-                    RECT rt = new RECT();
-                    SetForegroundWindow(steamGuardWindow);
-                    GetWindowRect(steamGuardWindow,out rt);
-                    SetCursorPos(rt.Left + 45, rt.Top + 45);
-                    mouse_event(0x00000002, rt.Left + 45, rt.Top + 45,0,0);
-                    mouse_event(0x00000004, rt.Left + 45, rt.Top + 45, 0, 0);
-                    SendTab(steamGuardWindow);
-                    foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
+                foreach (char c in steamGuard.GenerateSteamGuardCode().ToCharArray())
                     {
                         SendKey(steamGuardWindow, c);
                     }
-                    SendEnter(steamGuardWindow);
-                }
+                SendEnter(steamGuardWindow);
+                
 
             });
 
@@ -236,7 +226,9 @@ namespace SteamLogger
             GetWindowText(hWnd, windowTextSb, windowTextSb.Capacity + 1);
             string windowText = windowTextSb.ToString();
             if (className.Equals("vguiPopupWindow") &&
-                (windowText.Contains("Steam") && !windowText.Equals("Steam Client WebHelper")))
+                (windowText.StartsWith("Steam Guard") ||
+                windowText.StartsWith("Steam 令牌") ||
+                windowText.StartsWith("Steam ガード")))
             {
                 GCHandle gcChildhandlesList = GCHandle.FromIntPtr(lParam);
 
